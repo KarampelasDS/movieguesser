@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import MovieAttribute from "@/components/MovieAttribute/MovieAttribute";
+
 import { Courier_Prime, Roboto_Condensed } from "next/font/google";
 const courierPrime = Courier_Prime({
   weight: ["400", "700"],
@@ -42,39 +44,9 @@ export default function Game() {
                   farm.”
                 </p>
               </div>
-              <div className={`MovieAttribute ${robotoCondensed.className}`}>
-                <span>TITLE</span>
-                <div className="AttributeField">
-                  <p
-                    className={`AttributeValue ${courierPrime.className} ${chalktastic.className}`}
-                  >
-                    Jurassic Park
-                  </p>
-                  <div className="AttributeLine"></div>
-                </div>
-              </div>
-              <div className={`MovieAttribute ${robotoCondensed.className}`}>
-                <span>GENRE</span>
-                <div className="AttributeField">
-                  <p
-                    className={`AttributeValue ${courierPrime.className} ${chalktastic.className}`}
-                  >
-                    Action
-                  </p>
-                  <div className="AttributeLine"></div>
-                </div>
-              </div>
-              <div className={`MovieAttribute ${robotoCondensed.className}`}>
-                <span id="Year">RELEASE YEAR</span>
-                <div className="AttributeField">
-                  <p
-                    className={`AttributeValue ${courierPrime.className} ${chalktastic.className}`}
-                  >
-                    1993
-                  </p>
-                  <div className="AttributeLine"></div>
-                </div>
-              </div>
+              <MovieAttribute title="TITLE" content="Jurassic Park"/>
+              <MovieAttribute title="GENRE" content="Action"/>
+              <MovieAttribute title="RELEASE YEAR" year="true" content="1993"/>
             </div>
           </div>
         </div>
