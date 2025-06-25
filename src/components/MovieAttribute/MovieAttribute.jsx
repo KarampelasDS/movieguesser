@@ -20,13 +20,14 @@ const chalktastic = localFont({
   display: "swap",
 });
 
+
 export default function MovieAttribute(props){
 
     return(<div className={`MovieAttribute ${robotoCondensed.className}`}>
          <span id={props.year?"Year":""} >{props.title}</span>
          <div className="AttributeField">
                   <p
-                    className={`AttributeValue ${courierPrime.className} ${chalktastic.className}`}
+                    className={`AttributeValue  ${chalktastic.className}`}
                   >
                     {props.content}
                   </p>
