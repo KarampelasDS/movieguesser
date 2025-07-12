@@ -35,7 +35,7 @@ export default function Game() {
     <div className="game-page">
       <h1>Which movie is this?</h1>
       <Clapper title="Mpeos" genre="Action Thriller" year="2004" />
-      <Search />
+      <Search searchlist={movies} />
     </div>
   );
 }
