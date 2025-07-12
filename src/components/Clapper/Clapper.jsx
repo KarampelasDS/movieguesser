@@ -19,7 +19,7 @@ const robotoCondensed = Roboto_Condensed({
 import localFont from "next/font/local";
 
 const chalktastic = localFont({
-  src: "../../public/fonts/chalktastic/Chalktastic.ttf",
+  src: "../../../public/fonts/chalktastic/Chalktastic.ttf",
   display: "swap",
 });
 
@@ -43,12 +43,21 @@ export default function Clapper(props) {
                   farm.”
                 </p>
               </div>
-              <MovieAttribute title="TITLE" content={props.title} />
-              <MovieAttribute title="GENRE" content={props.genre} />
+              <MovieAttribute
+                title="TITLE"
+                content={props.title}
+                attributeRevealed={false}
+              />
+              <MovieAttribute
+                title="GENRE"
+                content={props.genre}
+                attributeRevealed={false}
+              />
               <MovieAttribute
                 title="RELEASE YEAR"
                 year="true"
                 content={props.year}
+                attributeRevealed={false}
               />
             </div>
           </div>
