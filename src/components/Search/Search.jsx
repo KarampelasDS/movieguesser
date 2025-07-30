@@ -6,7 +6,7 @@ import SearchResult from "./SearchResult";
 export default function Search(props) {
   const inputRef = useRef(null);
   const [query, setQuery] = useState("");
-  const [searchlist, setSearchlist] = useState(props.searchlist || []);
+  const [searchlist, setSearchlist] = useState([]);
 
   const fuseOptions = {
     isCaseSensitive: false,

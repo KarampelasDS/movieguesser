@@ -4,10 +4,13 @@ import { useEffect, useState } from "react";
 
 export default function Game() {
   const [movies, setMovies] = useState([]);
+  const [currentMovie, setCurrentMovie] = useState(null);
+  const [attempts, setAttempts] = useState(0);
 
   useEffect(() => {
     if (movies.length > 0) {
       console.log("Fetched Movies: ", movies);
+      RandomMovie();
       return;
     }
     FetchMovies();
@@ -28,13 +31,22 @@ export default function Game() {
   }
 
   function RandomMovie() {
-    console.log("Picking a random movie...");
+    if (movies.length === 0) return;
+    const randomIndex = Math.floor(Math.random() * movies.length);
+    setCurrentMovie(movies[randomIndex]);
+    console.log("Random Movie Selected: ", movies[randomIndex]);
   }
 
   return (
     <div className="game-page">
       <h1>Which movie is this?</h1>
-      <Clapper title="Mpeos" genre="Action Thriller" year="2004" />
+      <Clapper
+        title={currentMovie ? currentMovie.title : "Loading..."}
+        genre={currentMovie ? currentMovie.genre : "Loading..."}
+        year={currentMovie ? currentMovie.year : "Loading..."}
+        badDescription={currentMovie ? currentMovie.baddesc : "Loading..."}
+        reveal={attempts}
+      />
       <Search searchlist={movies} />
     </div>
   );

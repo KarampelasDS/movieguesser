@@ -38,26 +38,23 @@ export default function Clapper(props) {
             <div className="PosterHolder">TEST</div>
             <div className="MovieContent">
               <div className={`BadDescription ${courierPrime.className}`}>
-                <p>
-                  “Scientists repeatedly grow chickens that won't stay on their
-                  farm.”
-                </p>
+                <p>“{props.badDescription}”</p>
               </div>
               <MovieAttribute
                 title="TITLE"
                 content={props.title}
-                attributeRevealed={false}
+                attributeRevealed={props.reveal >= 3 ? true : false}
               />
               <MovieAttribute
                 title="GENRE"
                 content={props.genre}
-                attributeRevealed={false}
+                attributeRevealed={props.reveal >= 2 ? true : false}
               />
               <MovieAttribute
                 title="RELEASE YEAR"
                 year="true"
                 content={props.year}
-                attributeRevealed={false}
+                attributeRevealed={props.reveal >= 1 ? true : false}
               />
             </div>
           </div>
