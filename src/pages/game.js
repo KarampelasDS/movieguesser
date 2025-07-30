@@ -41,6 +41,7 @@ export default function Game() {
     <div className="game-page">
       <h1>Which movie is this?</h1>
       <Clapper
+        image={currentMovie ? currentMovie.poster : "/placeholder-image.png"}
         title={currentMovie ? currentMovie.title : "Loading..."}
         genre={currentMovie ? currentMovie.genre : "Loading..."}
         year={currentMovie ? currentMovie.year : "Loading..."}
@@ -48,6 +49,7 @@ export default function Game() {
         reveal={attempts}
       />
       <Search searchlist={movies} />
+      <button onClick={() => setAttempts(attempts + 1)}>Reveal</button>
     </div>
   );
 }

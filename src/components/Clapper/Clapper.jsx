@@ -35,7 +35,9 @@ export default function Clapper(props) {
             alt="Clapper Top"
           />
           <div className="clapper-content">
-            <div className="PosterHolder">TEST</div>
+            <div className="PosterHolder">
+              {props.reveal >= 4 && <img src={props.image} />}
+            </div>
             <div className="MovieContent">
               <div className={`BadDescription ${courierPrime.className}`}>
                 <p>“{props.badDescription}”</p>

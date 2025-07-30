@@ -44,14 +44,25 @@ body {
   flex-direction: row;
   padding: 50px;
   gap: 25px;
+  align-items: center;
 }
 
 .PosterHolder {
   min-width: 215px;
-  min-height: 325px;
+  min-height: 320px;
   background-color: #796d6d;
   border-radius: 10px;
   border: 3px solid #ffffff;
+  max-height: 320px;
+  max-width: 215px;
+}
+
+.PosterHolder img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  border: none !important;
+  border-radius: 10px;
 }
 
 .MovieContent {
@@ -68,6 +79,9 @@ body {
   font-weight: 400;
   font-style: normal;
   border-bottom: 4px solid #fff;
+  min-width: 800px;
+  max-height: 250px;
+  line-height: normal;
 }
 
 .MovieAttribute {
