@@ -1,10 +1,12 @@
 import Image from "next/image";
 import Fuse from "fuse.js";
 import { useRef, useState } from "react";
+import SearchResult from "./SearchResult";
 
 export default function Search(props) {
   const inputRef = useRef(null);
   const [query, setQuery] = useState("");
+  const [searchlist, setSearchlist] = useState(props.searchlist || []);
 
   const fuseOptions = {
     isCaseSensitive: false,
@@ -32,28 +34,46 @@ export default function Search(props) {
     }
     const result = fuse.search(query);
     console.log(result.map((item) => item.item));
+    setSearchlist(result.map((item) => item.item));
   }
 
   return (
-    <div className="search">
-      <div className="searchbar">
-        <input
-          type="text"
-          placeholder="Type movie title here..."
-          ref={inputRef}
-          value={query}
-          onChange={(e) => {
-            setQuery(e.target.value);
-          }}
-        />
-        <Image
-          className="searchIcon"
-          width={50}
-          height={50}
-          src="/search-icon.png"
-          onClick={() => searchMovies(query)}
-        />
+    <>
+      <div className="search">
+        <div className="searchbar">
+          <input
+            type="text"
+            placeholder="Type movie title here..."
+            ref={inputRef}
+            value={query}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              searchMovies(e.target.value);
+            }}
+          />
+          <Image
+            className="searchIcon"
+            width={50}
+            height={50}
+            src="/search-icon.png"
+            onClick={() => searchMovies(query)}
+          />
+        </div>
       </div>
-    </div>
+      {searchlist.length > 0 ? (
+        <div>
+          {searchlist.map((movie, index) => (
+            <SearchResult
+              key={index}
+              title={movie.title}
+              year={movie.year}
+              image={movie.poster}
+            />
+          ))}
+        </div>
+      ) : (
+        query != "" && <div className="search-no-results">No results found</div>
+      )}
+    </>
   );
 }
