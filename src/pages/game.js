@@ -29,6 +29,7 @@ export default function Game() {
       console.error("Error fetching movies:", error);
     }
   }
+  
 
   function RandomMovie() {
     if (movies.length === 0) return;
