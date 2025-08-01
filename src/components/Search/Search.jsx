@@ -27,7 +27,7 @@ export default function Search(props) {
   };
 
   useEffect(() => {
-    console.log("useEffect:",searchlist);
+    console.log("useEffect:", searchlist);
   }, [searchlist]);
 
   const fuse = new Fuse(props.searchlist, fuseOptions);
@@ -44,16 +44,16 @@ export default function Search(props) {
   async function SearchMovie(query) {
     try {
       const res = await fetch(
-        `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=true&language=en-US&page=1`,
+        `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`,
         {
           method: "GET",
           headers: {
             Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_KEY}`,
-            accept: "application/json"
-          }
+            accept: "application/json",
+          },
         }
       );
-  
+
       if (!res.ok) {
         throw new Error("Search Server Error");
       }
