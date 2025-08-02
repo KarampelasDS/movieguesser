@@ -8,7 +8,7 @@ export default function SearchResult(props) {
             alt={props.title}
           />
         </div>
-        <div className="search-results-details">
+        <div className="search-results-details ">
           {props.title}
           <br />({props.year.slice(0, 4)})
         </div>
