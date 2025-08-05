@@ -6,11 +6,15 @@ export default function SearchResult(props) {
           <img
             src={`https://image.tmdb.org/t/p/w500${props.image}`}
             alt={props.title}
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "/fallback.png";
+            }}
           />
         </div>
         <div className="search-results-details ">
           {props.title}
-          <br />({props.year.slice(0, 4)})
+          <br />({props.year})
         </div>
       </div>
     </div>

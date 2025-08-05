@@ -43,9 +43,11 @@ export default function Search(props) {
   }, [query]);
 
   useEffect(() => {
-    if (debounced) {
-      SearchMovie(debounced);
+    if (!debounced) {
+      setSearchlist([]); // Clear results immediately if query is empty
+      return;
     }
+    SearchMovie(debounced);
   }, [debounced]);
 
   return (

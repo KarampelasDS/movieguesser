@@ -176,7 +176,7 @@ body {
 }
 
 .search-results-container {
-  background-color: black;
+  background-color: #171717;
   min-width: 760px;
   min-height: 110px;
   border: 5px solid white;
@@ -185,7 +185,7 @@ body {
 }
 
 .search-results-container:hover {
-  background-color: #1a1a1a;
+  background-color: #272727;
   cursor: pointer;
   transition: all 0.2s ease-in;
 }
@@ -210,8 +210,11 @@ body {
   width: 100px;
   height: 145px;
   border-radius: 8px;
-  border: 5px solid white;
   margin-right: 8rem;
+}
+
+.search-results-image img {
+  border-radius: 8px;
 }
 
 .search-results-container:first-of-type {
