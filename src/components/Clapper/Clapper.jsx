@@ -36,7 +36,7 @@ export default function Clapper(props) {
           />
           <div className="clapper-content">
             <div className="PosterHolder">
-              {props.reveal >= 4 && <img src={props.image} />}
+              {props.reveal >= 3 && <img src={props.image} />}
             </div>
             <div className="MovieContent">
               <div className={`BadDescription ${courierPrime.className}`}>

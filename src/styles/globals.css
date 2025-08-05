@@ -73,14 +73,12 @@ body {
 
 .BadDescription {
   font-size: 36px;
-  max-width: 800px;
+  max-width: 918px;
   text-align: center;
   font-family: "Courier Prime", monospace;
   font-weight: 400;
   font-style: normal;
   border-bottom: 4px solid #fff;
-  min-width: 800px;
-  max-height: 250px;
   line-height: normal;
 }
 
@@ -99,6 +97,7 @@ body {
 .AttributeField {
   width: 100%;
   font-size: 42px;
+  max-width: 800px;
 }
 
 .AttributeLine {
@@ -222,4 +221,10 @@ body {
 .search-no-results {
   color: red;
   font-size: 36px;
+}
+
+.AttributeHidden {
+  display: flex;
+  justify-content: space-between;
+  color: red;
 }

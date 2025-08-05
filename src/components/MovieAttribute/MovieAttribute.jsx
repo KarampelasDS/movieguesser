@@ -31,12 +31,15 @@ export default function MovieAttribute(props) {
             {props.content}
           </p>
         ) : (
-          <Image
-            className="scribbles"
-            width={1000}
-            height={1000}
-            src="/Scribbles.png"
-          />
+          <div className={`AttributeHidden ${courierPrime.className}`}>
+            <Image
+              className="scribbles"
+              width={1000}
+              height={1000}
+              src="/Scribbles.png"
+            />
+            <span>in x Guesses</span>
+          </div>
         )}
         <div className="AttributeLine"></div>
       </div>

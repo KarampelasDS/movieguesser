@@ -1,11 +1,13 @@
 import Clapper from "@/components/Clapper/Clapper";
 import Search from "@/components/Search/Search";
+import useGameManager from "@/store/useGameManager";
 import { useEffect, useState } from "react";
 
 export default function Game() {
   const [movies, setMovies] = useState([]);
   const [currentMovie, setCurrentMovie] = useState(null);
   const [attempts, setAttempts] = useState(0);
+  const zustandCurrentMovie = useGameManager((state) => state.currentMovie);
 
   useEffect(() => {
     if (movies.length > 0) {
@@ -29,18 +31,19 @@ export default function Game() {
       console.error("Error fetching movies:", error);
     }
   }
-  
 
   function RandomMovie() {
     if (movies.length === 0) return;
     const randomIndex = Math.floor(Math.random() * movies.length);
     setCurrentMovie(movies[randomIndex]);
     console.log("Random Movie Selected: ", movies[randomIndex]);
+    useGameManager.getState().setCurrentMovie(movies[randomIndex].title);
   }
 
   return (
     <div className="game-page">
       <h1>Which movie is this?</h1>
+      <p>Current Movie: {zustandCurrentMovie}</p>
       <Clapper
         image={currentMovie ? currentMovie.poster : "/placeholder-image.png"}
         title={currentMovie ? currentMovie.title : "Loading..."}

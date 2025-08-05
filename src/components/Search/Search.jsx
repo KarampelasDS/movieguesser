@@ -7,41 +7,10 @@ export default function Search(props) {
   const inputRef = useRef(null);
   const [query, setQuery] = useState("");
   const [searchlist, setSearchlist] = useState([]);
-
-  const fuseOptions = {
-    isCaseSensitive: false,
-    // includeScore: false,
-    // ignoreDiacritics: false,
-    // shouldSort: true,
-    includeMatches: false,
-    findAllMatches: false,
-    // minMatchCharLength: 1,
-    // location: 0,
-    threshold: 0.5,
-    distance: 100,
-    // useExtendedSearch: false,
-    // ignoreLocation: false,
-    // ignoreFieldNorm: false,
-    // fieldNormWeight: 1,
-    keys: ["title"],
-  };
-
-  useEffect(() => {
-    console.log("useEffect:", searchlist);
-  }, [searchlist]);
-
-  const fuse = new Fuse(props.searchlist, fuseOptions);
-
-  function searchMovies(query) {
-    if (!query) {
-      return;
-    }
-    const result = fuse.search(query);
-    console.log(result.map((item) => item.item));
-    setSearchlist(result.map((item) => item.item));
-  }
+  const [debounced, setDebounced] = useState("");
 
   async function SearchMovie(query) {
+    if (!debounced) return;
     try {
       const res = await fetch(
         `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`,
@@ -65,6 +34,20 @@ export default function Search(props) {
     }
   }
 
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setDebounced(query);
+    }, 300);
+
+    return () => clearTimeout(timeout);
+  }, [query]);
+
+  useEffect(() => {
+    if (debounced) {
+      SearchMovie(debounced);
+    }
+  }, [debounced]);
+
   return (
     <>
       <div className="search">
@@ -76,7 +59,6 @@ export default function Search(props) {
             value={query}
             onChange={(e) => {
               setQuery(e.target.value);
-              SearchMovie(e.target.value);
             }}
           />
           <Image
