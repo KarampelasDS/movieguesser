@@ -14,7 +14,7 @@ export default function SearchResult(props) {
         </div>
         <div className="search-results-details ">
           {props.title}
-          <br />({props.year})
+          <br />({props.year ? props.year.slice(0, 4) : "N/A"})
         </div>
       </div>
     </div>
