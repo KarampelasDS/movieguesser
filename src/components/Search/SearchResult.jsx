@@ -1,6 +1,14 @@
+import useGameManager from "@/store/useGameManager";
+
 export default function SearchResult(props) {
+const guessMovie = useGameManager((state) => state.guessMovie);
+
+function Guess(){
+  guessMovie(`https://image.tmdb.org/t/p/w500${props.image}`, props.title, props.year);
+}
+  
   return (
-    <div className="search-results-container">
+    <div onClick={() => Guess()} className="search-results-container">
       <div className="search-results">
         <div className="search-results-image">
           <img

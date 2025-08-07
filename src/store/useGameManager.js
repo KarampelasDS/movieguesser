@@ -1,9 +1,41 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
-const useGameManager = create((set) => ({
-  currentMovie: "loading...",
-  resetMovie: () => set((state) => ({ currentMovie: "" })),
-  setCurrentMovie: (newMovie) => set({ currentMovie: newMovie }),
-}));
+const useGameManager = create(
+  persist(
+    (set, get) => ({
+      currentMovie: "loading...",
+      currentAttempts: 3,
+      setCurrentMovie: (newMovie) => set({ currentMovie: newMovie }),
+      resetMovie: () => set({ currentMovie: "loading..." }),
+      decreaseAttempts: () =>
+        set((state) => ({ currentAttempts: state.currentAttempts - 1 })),
+      guessesList:[],
+      addGuess: (guess) => set((state)=> ({guessesList: [...state.guessesList, guess]})),
+      _hasHydrated: false,
+      guessMovie: (guess, title, year) => {
+        if (guess === get().currentMovie) {
+          console.log("Correct");
+          get().addGuess({title: title, year: year, image: guess, correct: true})
+        } else {
+          console.log("Wrong");
+          get().addGuess({title: title, year: year, image: guess, correct: false})
+          get().decreaseAttempts();
+        }
+      },
+      setHasHydrated: (state) => set({ _hasHydrated: state }),
+    }),
+    {
+      name: "game-manager-storage", // storage key
+      skipHydration: true,
+      onRehydrateStorage: (state) => {
+        state.setHasHydrated(true);
+        return (state, error) => {
+          if (!error) state.setHasHydrated(true);
+        };
+      },
+    }
+  )
+);
 
 export default useGameManager;

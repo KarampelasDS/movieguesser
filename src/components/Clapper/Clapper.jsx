@@ -36,7 +36,7 @@ export default function Clapper(props) {
           />
           <div className="clapper-content">
             <div className="PosterHolder">
-              {props.reveal >= 3 && <img src={props.image} />}
+              {props.reveal <= 0 && <img src={props.image} />}
             </div>
             <div className="MovieContent">
               <div className={`BadDescription ${courierPrime.className}`}>
@@ -45,18 +45,18 @@ export default function Clapper(props) {
               <MovieAttribute
                 title="TITLE"
                 content={props.title}
-                attributeRevealed={props.reveal >= 3 ? true : false}
+                attributeRevealed={props.reveal <= 0 ? true : false}
               />
               <MovieAttribute
                 title="GENRE"
                 content={props.genre}
-                attributeRevealed={props.reveal >= 2 ? true : false}
+                attributeRevealed={props.reveal <= 1 ? true : false}
               />
               <MovieAttribute
                 title="RELEASE YEAR"
                 year="true"
                 content={props.year}
-                attributeRevealed={props.reveal >= 1 ? true : false}
+                attributeRevealed={props.reveal <= 2 ? true : false}
               />
             </div>
           </div>

@@ -2,12 +2,18 @@ import Image from "next/image";
 import Fuse from "fuse.js";
 import { useEffect, useRef, useState } from "react";
 import SearchResult from "./SearchResult";
+import useGameManager from "@/store/useGameManager";
 
 export default function Search(props) {
   const inputRef = useRef(null);
   const [query, setQuery] = useState("");
   const [searchlist, setSearchlist] = useState([]);
   const [debounced, setDebounced] = useState("");
+  const attempts = useGameManager((state) => state.currentAttempts);
+
+  useEffect(() => {
+    setQuery("");
+  },[attempts])
 
   async function SearchMovie(query) {
     if (!debounced) return;

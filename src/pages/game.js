@@ -6,8 +6,11 @@ import { useEffect, useState } from "react";
 export default function Game() {
   const [movies, setMovies] = useState([]);
   const [currentMovie, setCurrentMovie] = useState(null);
-  const [attempts, setAttempts] = useState(0);
+  const attempts = useGameManager((state) => state.currentAttempts);
   const zustandCurrentMovie = useGameManager((state) => state.currentMovie);
+  const decreaseAttempt =  useGameManager((state) => state.decreaseAttempts);
+  const guesses = useGameManager((state) => state.guessesList);
+
 
   useEffect(() => {
     if (movies.length > 0) {
@@ -37,13 +40,18 @@ export default function Game() {
     const randomIndex = Math.floor(Math.random() * movies.length);
     setCurrentMovie(movies[randomIndex]);
     console.log("Random Movie Selected: ", movies[randomIndex]);
-    useGameManager.getState().setCurrentMovie(movies[randomIndex].title);
+    useGameManager.getState().setCurrentMovie(movies[randomIndex].poster);
   }
 
   return (
     <div className="game-page">
       <h1>Which movie is this?</h1>
       <p>Current Movie: {zustandCurrentMovie}</p>
+      <p>Current attempts: {attempts}</p>
+      <p>Guesses: {guesses.map((guess, index) =>{
+        return(<div>{guess.title} {guess.year} {guess.image} {guess.correct ? "✅" : "❌"}</div>);
+      })}</p>
+      <button onClick={()=>decreaseAttempt()}>Reveal</button>
       <Clapper
         image={currentMovie ? currentMovie.poster : "/placeholder-image.png"}
         title={currentMovie ? currentMovie.title : "Loading..."}
@@ -53,7 +61,7 @@ export default function Game() {
         reveal={attempts}
       />
       <Search searchlist={movies} />
-      <button onClick={() => setAttempts(attempts + 1)}>Reveal</button>
+      
     </div>
   );
 }
