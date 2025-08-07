@@ -10,16 +10,21 @@ export default function Search(props) {
   const [searchlist, setSearchlist] = useState([]);
   const [debounced, setDebounced] = useState("");
   const attempts = useGameManager((state) => state.currentAttempts);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     setQuery("");
-  },[attempts])
+  }, [attempts]);
+
+  useEffect(() => {
+    SearchMovie(query);
+  }, [page]);
 
   async function SearchMovie(query) {
     if (!debounced) return;
     try {
       const res = await fetch(
-        `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`,
+        `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=${page}`,
         {
           method: "GET",
           headers: {
@@ -43,6 +48,7 @@ export default function Search(props) {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setDebounced(query);
+      setPage(1);
     }, 300);
 
     return () => clearTimeout(timeout);
@@ -92,6 +98,23 @@ export default function Search(props) {
       ) : (
         query != "" && <div className="search-no-results">No results found</div>
       )}
+      <div>
+        <button
+          onClick={() => {
+            setPage(page - 1);
+          }}
+        >
+          Previous Page
+        </button>
+        <span>{page} </span>
+        <button
+          onClick={() => {
+            setPage(page + 1);
+          }}
+        >
+          Next Page
+        </button>
+      </div>
     </>
   );
 }
