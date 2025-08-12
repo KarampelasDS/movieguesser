@@ -1,4 +1,5 @@
 import Clapper from "@/components/Clapper/Clapper";
+import GuessAttempt from "@/components/GuessAttempt/GuessAttempt";
 import Search from "@/components/Search/Search";
 import useGameManager from "@/store/useGameManager";
 import { useEffect, useState } from "react";
@@ -48,9 +49,6 @@ export default function Game() {
       <h1>Which movie is this?</h1>
       <p>Current Movie: {zustandCurrentMovie}</p>
       <p>Current attempts: {attempts}</p>
-      <p>Guesses: {guesses.map((guess, index) =>{
-        return(<div>{guess.title} {guess.year} {guess.image} {guess.correct ? "✅" : "❌"}</div>);
-      })}</p>
       <button onClick={()=>decreaseAttempt()}>Reveal</button>
       <Clapper
         image={currentMovie ? currentMovie.poster : "/placeholder-image.png"}
@@ -61,6 +59,11 @@ export default function Game() {
         reveal={attempts}
       />
       <Search searchlist={movies} />
+      <div>
+        {[...guesses].reverse().map((guess, index) => {
+          return(<GuessAttempt title={guess.title} year={guess.year} image={guess.image} correct={guess.correct} key={index} />);
+        })}
+      </div>
       
     </div>
   );

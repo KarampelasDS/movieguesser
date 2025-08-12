@@ -231,3 +231,26 @@ body {
   justify-content: space-between;
   color: red;
 }
+
+.GuessAttempt{
+  background-color: #171717;
+  min-width: 760px;
+  min-height: 110px;
+  border: 5px solid white;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+.GuessAttempt .search-results{
+  justify-content: space-between;
+}
+
+.GuessAttempt .search-results-image{
+  margin: 0px;
+}
+
+.GuessResult{
+  border: 2px solid white;
+  padding: 10px;
+  border-radius: 5px;
+}
