@@ -9,9 +9,8 @@ export default function Game() {
   const [currentMovie, setCurrentMovie] = useState(null);
   const attempts = useGameManager((state) => state.currentAttempts);
   const zustandCurrentMovie = useGameManager((state) => state.currentMovie);
-  const decreaseAttempt =  useGameManager((state) => state.decreaseAttempts);
+  const decreaseAttempt = useGameManager((state) => state.decreaseAttempts);
   const guesses = useGameManager((state) => state.guessesList);
-
 
   useEffect(() => {
     if (movies.length > 0) {
@@ -41,7 +40,7 @@ export default function Game() {
     const randomIndex = Math.floor(Math.random() * movies.length);
     setCurrentMovie(movies[randomIndex]);
     console.log("Random Movie Selected: ", movies[randomIndex]);
-    useGameManager.getState().setCurrentMovie(movies[randomIndex].poster);
+    useGameManager.getState().setCurrentMovie(movies[randomIndex].tmdb_id);
   }
 
   return (
@@ -49,7 +48,7 @@ export default function Game() {
       <h1>Which movie is this?</h1>
       <p>Current Movie: {zustandCurrentMovie}</p>
       <p>Current attempts: {attempts}</p>
-      <button onClick={()=>decreaseAttempt()}>Reveal</button>
+      <button onClick={() => decreaseAttempt()}>Reveal</button>
       <Clapper
         image={currentMovie ? currentMovie.poster : "/placeholder-image.png"}
         title={currentMovie ? currentMovie.title : "Loading..."}
@@ -61,10 +60,17 @@ export default function Game() {
       <Search searchlist={movies} />
       <div>
         {[...guesses].reverse().map((guess, index) => {
-          return(<GuessAttempt title={guess.title} year={guess.year} image={guess.image} correct={guess.correct} key={index} />);
+          return (
+            <GuessAttempt
+              title={guess.title}
+              year={guess.year}
+              image={guess.image}
+              correct={guess.correct}
+              key={index}
+            />
+          );
         })}
       </div>
-      
     </div>
   );
 }

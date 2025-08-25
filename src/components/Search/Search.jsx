@@ -92,6 +92,7 @@ export default function Search(props) {
               title={movie.title}
               year={movie.release_date}
               image={movie.poster_path}
+              tmdbid={movie.id}
             />
           ))}
         </div>
