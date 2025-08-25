@@ -10,18 +10,29 @@ const useGameManager = create(
       resetMovie: () => set({ currentMovie: "loading..." }),
       decreaseAttempts: () =>
         set((state) => ({ currentAttempts: state.currentAttempts - 1 })),
-      setAttempts: (newAttempts) => set({ currentAttempts: newAttempts}),
-      guessesList:[],
-      addGuess: (guess) => set((state)=> ({guessesList: [...state.guessesList, guess]})),
+      setAttempts: (newAttempts) => set({ currentAttempts: newAttempts }),
+      guessesList: [],
+      addGuess: (guess) =>
+        set((state) => ({ guessesList: [...state.guessesList, guess] })),
       _hasHydrated: false,
-      guessMovie: (guess, title, year) => {
-        if (guess === get().currentMovie) {
+      guessMovie: (guess, title, year, image) => {
+        if (guess == get().currentMovie) {
           console.log("Correct");
-          get().addGuess({title: title, year: year, image: guess, correct: true})
+          get().addGuess({
+            title: title,
+            year: year,
+            image: image,
+            correct: true,
+          });
           get().setAttempts(0);
         } else {
           console.log("Wrong");
-          get().addGuess({title: title, year: year, image: guess, correct: false})
+          get().addGuess({
+            title: title,
+            year: year,
+            image: image,
+            correct: false,
+          });
           get().decreaseAttempts();
         }
       },
