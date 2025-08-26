@@ -29,7 +29,6 @@ export default function SearchResult(props) {
         <div className="search-results-details ">
           {props.title}
           <br />({props.year ? props.year.slice(0, 4) : "N/A"})<br />
-          {props.tmdbid}
         </div>
       </div>
     </div>

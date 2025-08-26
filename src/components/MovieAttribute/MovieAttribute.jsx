@@ -1,3 +1,4 @@
+import useGameManager from "@/store/useGameManager";
 import { Courier_Prime, Roboto_Condensed } from "next/font/google";
 import Image from "next/image";
 const courierPrime = Courier_Prime({
@@ -15,6 +16,7 @@ const robotoCondensed = Roboto_Condensed({
 });
 
 import localFont from "next/font/local";
+import { useEffect, useState } from "react";
 
 const chalktastic = localFont({
   src: "../../../public/fonts/chalktastic/Chalktastic.ttf",
@@ -22,6 +24,15 @@ const chalktastic = localFont({
 });
 
 export default function MovieAttribute(props) {
+  const guessesList = useGameManager((state) => state.guessesList);
+  const [AttributeAttempts, setAttributeAttempts] = useState(props.attempts);
+
+  useEffect(() => {
+    if (guessesList.length > 0) {
+      setAttributeAttempts((prev) => prev - 1);
+    }
+  }, [guessesList]);
+
   return (
     <div className={`MovieAttribute ${robotoCondensed.className}`}>
       <span id={props.year ? "Year" : ""}>{props.title}</span>
@@ -38,7 +49,11 @@ export default function MovieAttribute(props) {
               height={1000}
               src="/Scribbles.png"
             />
-            <span>in x Guesses</span>
+            {AttributeAttempts > 1 ? (
+              <span>in {AttributeAttempts} Guesses</span>
+            ) : (
+              <span>in 1 Guess</span>
+            )}
           </div>
         )}
         <div className="AttributeLine"></div>
