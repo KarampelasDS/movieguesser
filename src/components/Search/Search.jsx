@@ -3,6 +3,7 @@ import Fuse from "fuse.js";
 import { useEffect, useRef, useState } from "react";
 import SearchResult from "./SearchResult";
 import useGameManager from "@/store/useGameManager";
+import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
 
 export default function Search(props) {
   const inputRef = useRef(null);
@@ -11,6 +12,7 @@ export default function Search(props) {
   const [debounced, setDebounced] = useState("");
   const attempts = useGameManager((state) => state.currentAttempts);
   const [page, setPage] = useState(1);
+  const [maxPage, setMaxPage] = useState(null);
 
   useEffect(() => {
     setQuery("");
@@ -40,6 +42,7 @@ export default function Search(props) {
       const data = await res.json();
       console.log("TMDB:", data);
       setSearchlist(data.results.map((item) => item));
+      setMaxPage(data.total_pages);
     } catch (error) {
       console.error("Error fetching movies:", error);
     }
@@ -99,23 +102,28 @@ export default function Search(props) {
       ) : (
         query != "" && <div className="search-no-results">No results found</div>
       )}
-      <div>
-        <button
-          onClick={() => {
-            setPage(page - 1);
-          }}
-        >
-          Previous Page
-        </button>
-        <span>{page} </span>
-        <button
-          onClick={() => {
-            setPage(page + 1);
-          }}
-        >
-          Next Page
-        </button>
-      </div>
+      {searchlist.length > 0 && (
+        <div className="pagination-controls">
+          <button
+            disabled={page <= 1}
+            onClick={() => {
+              if (page <= 1) return;
+              setPage(page - 1);
+            }}
+          >
+            <GrFormPreviousLink />
+          </button>
+          <span>{page} </span>
+          <button
+            disabled={maxPage == page || page == 10}
+            onClick={() => {
+              setPage(page + 1);
+            }}
+          >
+            <GrFormNextLink />
+          </button>
+        </div>
+      )}
     </>
   );
 }

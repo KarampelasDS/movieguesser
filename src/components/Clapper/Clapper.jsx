@@ -1,5 +1,6 @@
 import { Courier_Prime, Roboto_Condensed } from "next/font/google";
 import MovieAttribute from "@/components/MovieAttribute/MovieAttribute";
+import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
 import Image from "next/image";
 
 const courierPrime = Courier_Prime({
@@ -47,6 +48,7 @@ export default function Clapper(props) {
                 content={props.title}
                 attributeRevealed={props.reveal <= 0 ? true : false}
                 attempts={3}
+                info="true"
               />
               <MovieAttribute
                 title="GENRE"

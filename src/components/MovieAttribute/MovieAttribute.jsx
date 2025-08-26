@@ -1,4 +1,5 @@
 import useGameManager from "@/store/useGameManager";
+import { BsInfoCircleFill } from "react-icons/bs";
 import { Courier_Prime, Roboto_Condensed } from "next/font/google";
 import Image from "next/image";
 const courierPrime = Courier_Prime({
@@ -40,6 +41,7 @@ export default function MovieAttribute(props) {
         {props.attributeRevealed ? (
           <p className={`AttributeValue  ${chalktastic.className}`}>
             {props.content}
+            {props.info && <BsInfoCircleFill />}
           </p>
         ) : (
           <div className={`AttributeHidden ${courierPrime.className}`}>

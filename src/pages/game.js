@@ -46,9 +46,9 @@ export default function Game() {
   return (
     <div className="game-page">
       <h1>Which movie is this?</h1>
-      <p>Current Movie: {zustandCurrentMovie}</p>
+      {/*<p>Current Movie: {zustandCurrentMovie}</p>
       <p>Current attempts: {attempts}</p>
-      <button onClick={() => decreaseAttempt()}>Reveal</button>
+      <button onClick={() => decreaseAttempt()}>Reveal</button>*/}
       <Clapper
         image={currentMovie ? currentMovie.poster : "/placeholder-image.png"}
         title={currentMovie ? currentMovie.title : "Loading..."}
@@ -57,7 +57,7 @@ export default function Game() {
         badDescription={currentMovie ? currentMovie.baddesc : "Loading..."}
         reveal={attempts}
       />
-      <Search searchlist={movies} />
+      <Search />
       <div>
         {[...guesses].reverse().map((guess, index) => {
           return (
