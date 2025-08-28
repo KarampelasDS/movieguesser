@@ -314,7 +314,7 @@ body {
   max-width: 1200px;
   overflow-wrap: break-word;
   max-height: 400px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .movie-overview-content img {
