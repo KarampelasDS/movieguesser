@@ -269,7 +269,7 @@ body {
   background-color: #171717;
   color: white;
   border: none;
-  padding: 20px 20px;
+  padding: 10px 20px;
   font-size: 24px;
   cursor: pointer;
   border-radius: 5px;
@@ -278,4 +278,84 @@ body {
 .pagination-controls span {
   color: white;
   font-size: 24px;
+}
+
+.movie-overview-wrapper {
+  background-color: #1b1b1bf2;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  display: flex;
+}
+
+.movie-overview-container {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  margin-top: 100px;
+}
+
+.movie-overview-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  min-width: 70vw;
+}
+
+.movie-overview-content h2 {
+  font-size: 64px;
+  max-width: 1200px;
+  overflow-wrap: break-word;
+}
+
+.movie-overview-content p {
+  font-size: 32px;
+  max-width: 1200px;
+  overflow-wrap: break-word;
+  max-height: 400px;
+  overflow-y: scroll;
+}
+
+.movie-overview-content img {
+  border-radius: 10px;
+  object-fit: cover;
+  margin-right: 60px;
+}
+
+.movie-overview-controls {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin-top: 50px;
+}
+
+.movie-overview-controls button {
+  background-color: #3a3a3a;
+  padding: 20px 40px;
+  font-size: 48px;
+  border: 4px solid white;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.1s ease-in;
+}
+
+.movie-overview-controls a {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.movie-overview-controls button:hover {
+  background-color: #5a5a5a;
+  transform: scale(1.05);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }

@@ -7,6 +7,8 @@ const useGameManager = create(
       currentMovie: "loading...",
       currentAttempts: 3,
       setCurrentMovie: (newMovie) => set({ currentMovie: newMovie }),
+      showOverview: false,
+      setShowOverview: (newState) => set({ showOverview: newState }),
       resetMovie: () => set({ currentMovie: "loading..." }),
       decreaseAttempts: () =>
         set((state) => ({ currentAttempts: state.currentAttempts - 1 })),

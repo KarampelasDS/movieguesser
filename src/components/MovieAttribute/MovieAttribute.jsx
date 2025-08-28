@@ -27,6 +27,7 @@ const chalktastic = localFont({
 export default function MovieAttribute(props) {
   const guessesList = useGameManager((state) => state.guessesList);
   const [AttributeAttempts, setAttributeAttempts] = useState(props.attempts);
+  const setShowOverview = useGameManager((state) => state.setShowOverview);
 
   useEffect(() => {
     if (guessesList.length > 0) {
@@ -41,7 +42,13 @@ export default function MovieAttribute(props) {
         {props.attributeRevealed ? (
           <p className={`AttributeValue  ${chalktastic.className}`}>
             {props.content}
-            {props.info && <BsInfoCircleFill />}
+            {props.info && (
+              <BsInfoCircleFill
+                onClick={() => {
+                  setShowOverview(true);
+                }}
+              />
+            )}
           </p>
         ) : (
           <div className={`AttributeHidden ${courierPrime.className}`}>

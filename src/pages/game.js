@@ -3,6 +3,7 @@ import GuessAttempt from "@/components/GuessAttempt/GuessAttempt";
 import Search from "@/components/Search/Search";
 import useGameManager from "@/store/useGameManager";
 import { useEffect, useState } from "react";
+import MovieOverview from "@/components/MovieOverview/MovieOverview";
 
 export default function Game() {
   const [movies, setMovies] = useState([]);
@@ -11,6 +12,8 @@ export default function Game() {
   const zustandCurrentMovie = useGameManager((state) => state.currentMovie);
   const decreaseAttempt = useGameManager((state) => state.decreaseAttempts);
   const guesses = useGameManager((state) => state.guessesList);
+  const showOverview = useGameManager((state) => state.showOverview);
+  const setShowOverview = useGameManager((state) => state.setShowOverview);
 
   useEffect(() => {
     if (movies.length > 0) {
@@ -71,6 +74,15 @@ export default function Game() {
           );
         })}
       </div>
+      {showOverview && (
+        <MovieOverview
+          title={currentMovie.title}
+          year={currentMovie.year}
+          description={currentMovie.overview}
+          image={currentMovie.poster}
+          link={currentMovie.watchurl}
+        />
+      )}
     </div>
   );
 }
