@@ -46,8 +46,8 @@ export default function Clapper(props) {
                 title="TITLE"
                 content={props.title}
                 attributeRevealed={props.reveal <= 0 ? true : false}
-                attempts={3}
                 info="true"
+                noattempts={true}
               />
               <MovieAttribute
                 title="GENRE"

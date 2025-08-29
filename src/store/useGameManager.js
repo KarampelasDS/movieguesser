@@ -17,8 +17,18 @@ const useGameManager = create(
       addGuess: (guess) =>
         set((state) => ({ guessesList: [...state.guessesList, guess] })),
       _hasHydrated: false,
+      gameResult: "",
+      setGameResult: (result) => set({ gameResult: result }),
+      resetGame: () =>
+        set({
+          currentMovie: "loading...",
+          currentAttempts: 3,
+          guessesList: [],
+          gameResult: "",
+        }),
       guessMovie: (guess, title, year, image) => {
         if (guess == get().currentMovie) {
+          get().setGameResult("Win");
           console.log("Correct");
           get().addGuess({
             title: title,

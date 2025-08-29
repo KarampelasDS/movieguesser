@@ -44,6 +44,7 @@ export default function MovieAttribute(props) {
             {props.content}
             {props.info && (
               <BsInfoCircleFill
+                style={{ cursor: "pointer" }}
                 onClick={() => {
                   setShowOverview(true);
                 }}
@@ -58,7 +59,8 @@ export default function MovieAttribute(props) {
               height={1000}
               src="/Scribbles.png"
             />
-            {AttributeAttempts > 1 ? (
+
+            {props.noattempts == true ? null : AttributeAttempts > 1 ? (
               <span>in {AttributeAttempts} Guesses</span>
             ) : (
               <span>in 1 Guess</span>

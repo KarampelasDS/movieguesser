@@ -14,6 +14,9 @@ export default function Game() {
   const guesses = useGameManager((state) => state.guessesList);
   const showOverview = useGameManager((state) => state.showOverview);
   const setShowOverview = useGameManager((state) => state.setShowOverview);
+  const gameResult = useGameManager((state) => state.gameResult);
+  const setGameResult = useGameManager((state) => state.setGameResult);
+  const resetGame = useGameManager((state) => state.resetGame);
 
   useEffect(() => {
     if (movies.length > 0) {
@@ -46,9 +49,19 @@ export default function Game() {
     useGameManager.getState().setCurrentMovie(movies[randomIndex].tmdb_id);
   }
 
+  if (attempts == 0 && gameResult !== "Win") {
+    setGameResult("Lose");
+  }
+
   return (
     <div className="game-page">
-      <h1>Which movie is this?</h1>
+      {gameResult === "Win" ? (
+        <h1>Great guess!</h1>
+      ) : gameResult === "Lose" ? (
+        <h1>Better luck next time!</h1>
+      ) : (
+        <h1>Which Movie is this?</h1>
+      )}
       {/*<p>Current Movie: {zustandCurrentMovie}</p>
       <p>Current attempts: {attempts}</p>
       <button onClick={() => decreaseAttempt()}>Reveal</button>*/}
@@ -60,7 +73,10 @@ export default function Game() {
         badDescription={currentMovie ? currentMovie.baddesc : "Loading..."}
         reveal={attempts}
       />
-      <Search />
+      <p className="attempts-counter">
+        You have <span>{attempts}</span> attempts left!
+      </p>
+      {attempts > 0 && <Search />}
       <div>
         {[...guesses].reverse().map((guess, index) => {
           return (
