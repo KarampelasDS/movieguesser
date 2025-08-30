@@ -28,12 +28,17 @@ export default function MovieAttribute(props) {
   const guessesList = useGameManager((state) => state.guessesList);
   const [AttributeAttempts, setAttributeAttempts] = useState(props.attempts);
   const setShowOverview = useGameManager((state) => state.setShowOverview);
+  const gameResult = useGameManager((state) => state.gameResult);
 
   useEffect(() => {
     if (guessesList.length > 0) {
       setAttributeAttempts((prev) => prev - 1);
     }
   }, [guessesList]);
+
+  useEffect(() => {
+    setAttributeAttempts(props.attempts);
+  }, [gameResult]);
 
   return (
     <div className={`MovieAttribute ${robotoCondensed.className}`}>

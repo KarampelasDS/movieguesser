@@ -375,3 +375,38 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
+.resultsScreen {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  font-family: "DM Mono", monospace;
+  font-size: 30px;
+}
+
+.resultsScreen .resultsCard {
+  z-index: 9;
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  position: relative;
+}
+
+.resultsScreen .background img {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  right: 0;
+  object-fit: fill;
+  position: absolute;
+  z-index: 8;
+}

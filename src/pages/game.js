@@ -4,6 +4,7 @@ import Search from "@/components/Search/Search";
 import useGameManager from "@/store/useGameManager";
 import { useEffect, useState } from "react";
 import MovieOverview from "@/components/MovieOverview/MovieOverview";
+import Results from "@/components/Results/Results";
 
 export default function Game() {
   const [movies, setMovies] = useState([]);
@@ -99,6 +100,7 @@ export default function Game() {
           link={currentMovie.watchurl}
         />
       )}
+      {gameResult == "Lose" && <Results fetchNewMovie={RandomMovie} />}
     </div>
   );
 }
