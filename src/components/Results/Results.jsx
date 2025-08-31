@@ -1,6 +1,7 @@
 import useGameManager from "@/store/useGameManager";
 
 export default function Results(props) {
+  const score = useGameManager((state) => state.currentScore);
   return (
     <div className="resultsScreen">
       <div>
@@ -9,7 +10,7 @@ export default function Results(props) {
         </div>
         <div className="resultsCard">
           <span>You scored:</span>
-          <h2>score</h2>
+          <h2>{score}</h2>
           <span>damn lol</span>
           <button
             onClick={() => {

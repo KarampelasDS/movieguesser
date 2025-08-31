@@ -5,11 +5,13 @@ import useGameManager from "@/store/useGameManager";
 import { useEffect, useState } from "react";
 import MovieOverview from "@/components/MovieOverview/MovieOverview";
 import Results from "@/components/Results/Results";
+import Stat from "@/components/Stat/Stat";
 
 export default function Game() {
   const [movies, setMovies] = useState([]);
   const [currentMovie, setCurrentMovie] = useState(null);
   const attempts = useGameManager((state) => state.currentAttempts);
+  const setAttempts = useGameManager((state) => state.setAttempts);
   const zustandCurrentMovie = useGameManager((state) => state.currentMovie);
   const decreaseAttempt = useGameManager((state) => state.decreaseAttempts);
   const guesses = useGameManager((state) => state.guessesList);
@@ -18,6 +20,8 @@ export default function Game() {
   const gameResult = useGameManager((state) => state.gameResult);
   const setGameResult = useGameManager((state) => state.setGameResult);
   const resetGame = useGameManager((state) => state.resetGame);
+  const resetGuessesList = useGameManager((state) => state.resetGuessesList);
+  const resetMovie = useGameManager((state) => state.resetMovie);
 
   useEffect(() => {
     if (movies.length > 0) {
@@ -46,16 +50,29 @@ export default function Game() {
     if (movies.length === 0) return;
     const randomIndex = Math.floor(Math.random() * movies.length);
     setCurrentMovie(movies[randomIndex]);
-    console.log("Random Movie Selected: ", movies[randomIndex]);
     useGameManager.getState().setCurrentMovie(movies[randomIndex].tmdb_id);
+    console.log("Random Movie Selected: ", movies[randomIndex]);
   }
 
   if (attempts == 0 && gameResult !== "Win") {
     setGameResult("Lose");
   }
 
+  async function NextMovie() {
+    resetMovie();
+    RandomMovie();
+    setAttempts(3);
+    setShowOverview(false);
+    setGameResult("");
+    resetGuessesList();
+  }
+
   return (
     <div className="game-page">
+      <Stat
+        title="Score"
+        value={useGameManager((state) => state.currentScore)}
+      />
       {gameResult === "Win" ? (
         <h1>Great guess!</h1>
       ) : gameResult === "Lose" ? (
@@ -74,6 +91,7 @@ export default function Game() {
         badDescription={currentMovie ? currentMovie.baddesc : "Loading..."}
         reveal={attempts}
       />
+      {gameResult == "Win" && <button onClick={() => NextMovie()}>Next</button>}
       <p className="attempts-counter">
         You have <span>{attempts}</span> attempts left!
       </p>
