@@ -85,7 +85,7 @@ export default function Game() {
 
   function restartGame() {
     setCurrentMovie(undefined);
-    resetGame(); // resets zustand state
+    resetGame();
     setOutOfMovies(false);
     FetchMovies();
   }
@@ -93,7 +93,7 @@ export default function Game() {
   if (outOfMovies) {
     return (
       <div className="game-page">
-        <h1>You've gone through all the movies!</h1>
+        <h1>You haveve gone through all the movies!</h1>
         <p>Final Score: {currentScore}</p>
         <p>Highest Score: {highScore}</p>
         <button onClick={restartGame}>Restart</button>
