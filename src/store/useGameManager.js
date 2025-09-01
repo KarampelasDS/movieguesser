@@ -9,7 +9,19 @@ const useGameManager = create(
       setCurrentMovie: (newMovie) => set({ currentMovie: newMovie }),
       showOverview: false,
       currentScore: 0,
-      setCurrentScore: (newScore) => set({ currentScore: newScore }),
+      highScore: 0, // 🏆 persisted manually
+      setCurrentScore: (newScore) => {
+        set((state) => {
+          const newHigh = Math.max(newScore, state.highScore);
+
+          // persist highScore in localStorage manually
+          if (typeof window !== "undefined" && newHigh > state.highScore) {
+            localStorage.setItem("highScore", newHigh);
+          }
+
+          return { currentScore: newScore, highScore: newHigh };
+        });
+      },
       pastMovies: [],
       addPastMovie: (movie) =>
         set((state) => ({ pastMovies: [...state.pastMovies, movie] })),
@@ -37,26 +49,24 @@ const useGameManager = create(
       guessMovie: (guess, title, year, image) => {
         if (guess == get().currentMovie) {
           get().setGameResult("Win");
-          get().setCurrentScore(get().currentScore + 1);
-          console.log("Correct");
-          get().addGuess({
-            title: title,
-            year: year,
-            image: image,
-            correct: true,
-          });
+          const newScore = get().currentScore + 1;
+          get().setCurrentScore(newScore); // auto-updates highScore
+          get().addGuess({ title, year, image, correct: true });
           get().setAttempts(0);
         } else {
-          console.log("Wrong");
-          get().addGuess({
-            title: title,
-            year: year,
-            image: image,
-            correct: false,
-          });
+          get().addGuess({ title, year, image, correct: false });
           get().decreaseAttempts();
         }
       },
+
+      // 🔹 Manually hydrate highScore after mount
+      hydrateHighScore: () => {
+        if (typeof window !== "undefined") {
+          const savedHigh = parseInt(localStorage.getItem("highScore")) || 0;
+          set({ highScore: savedHigh });
+        }
+      },
+
       setHasHydrated: (state) => set({ _hasHydrated: state }),
     }),
     {

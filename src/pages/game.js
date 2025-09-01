@@ -67,11 +67,21 @@ export default function Game() {
     resetGuessesList();
   }
 
+  const hydrateHighScore = useGameManager((state) => state.hydrateHighScore);
+  const highScore = useGameManager((state) => state.highScore);
+
+  useEffect(() => {
+    hydrateHighScore(); // only runs on client
+  }, []);
+
   return (
     <div className="game-page">
       <Stat
         title="Score"
         value={useGameManager((state) => state.currentScore)}
+        right={true}
+        subvalue={useGameManager((state) => state.highScore)}
+        subvaluetitle="Highest"
       />
       {gameResult === "Win" ? (
         <h1>Great guess!</h1>
