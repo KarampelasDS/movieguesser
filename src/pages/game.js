@@ -8,8 +8,9 @@ import Results from "@/components/Results/Results";
 import Stat from "@/components/Stat/Stat";
 
 export default function Game() {
+  const [allMovies, setAllMovies] = useState([]);
   const [movies, setMovies] = useState([]);
-  const [currentMovie, setCurrentMovie] = useState(null);
+  const [currentMovie, setCurrentMovie] = useState();
   const [outOfMovies, setOutOfMovies] = useState(false);
 
   const attempts = useGameManager((state) => state.currentAttempts);
@@ -28,6 +29,7 @@ export default function Game() {
   const highScore = useGameManager((state) => state.highScore);
   const currentScore = useGameManager((state) => state.currentScore);
 
+  // Fetch movies on mount
   useEffect(() => {
     hydrateHighScore();
     FetchMovies();
@@ -38,7 +40,9 @@ export default function Game() {
       const res = await fetch("/api/fetchMovie");
       if (!res.ok) throw new Error("Network response was not ok");
       const data = await res.json();
+      setAllMovies(data);
       setMovies(data);
+      console.log("Fetched Movies:", data);
       if (data.length > 0) RandomMovie(data);
     } catch (error) {
       console.error("Error fetching movies:", error);
@@ -79,21 +83,20 @@ export default function Game() {
     resetGuessesList();
   }
 
+  function restartGame() {
+    setCurrentMovie(undefined);
+    resetGame(); // resets zustand state
+    setOutOfMovies(false);
+    FetchMovies();
+  }
+
   if (outOfMovies) {
     return (
       <div className="game-page">
         <h1>You've gone through all the movies!</h1>
         <p>Final Score: {currentScore}</p>
         <p>Highest Score: {highScore}</p>
-        <button
-          onClick={() => {
-            resetGame();
-            FetchMovies();
-            setOutOfMovies(false);
-          }}
-        >
-          Restart
-        </button>
+        <button onClick={restartGame}>Restart</button>
       </div>
     );
   }
@@ -125,7 +128,9 @@ export default function Game() {
         reveal={attempts}
       />
 
-      {gameResult === "Win" && <button onClick={NextMovie}>Next</button>}
+      {(gameResult === "Win" || movies.length === 0) && (
+        <button onClick={NextMovie}>Next</button>
+      )}
 
       <p className="attempts-counter">
         You have <span>{attempts}</span> attempts left!
@@ -155,7 +160,7 @@ export default function Game() {
         />
       )}
 
-      {gameResult === "Lose" && <Results fetchNewMovie={RandomMovie} />}
+      {gameResult === "Lose" && <Results restartGame={restartGame} />}
     </div>
   );
 }

@@ -14,8 +14,7 @@ export default function Results(props) {
           <span>damn lol</span>
           <button
             onClick={() => {
-              useGameManager.getState().resetGame();
-              props.fetchNewMovie();
+              props.restartGame();
             }}
           >
             Play Again
