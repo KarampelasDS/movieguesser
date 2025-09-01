@@ -10,9 +10,10 @@ import Stat from "@/components/Stat/Stat";
 export default function Game() {
   const [movies, setMovies] = useState([]);
   const [currentMovie, setCurrentMovie] = useState(null);
+  const [outOfMovies, setOutOfMovies] = useState(false);
+
   const attempts = useGameManager((state) => state.currentAttempts);
   const setAttempts = useGameManager((state) => state.setAttempts);
-  const zustandCurrentMovie = useGameManager((state) => state.currentMovie);
   const decreaseAttempt = useGameManager((state) => state.decreaseAttempts);
   const guesses = useGameManager((state) => state.guessesList);
   const showOverview = useGameManager((state) => state.showOverview);
@@ -23,42 +24,53 @@ export default function Game() {
   const resetGuessesList = useGameManager((state) => state.resetGuessesList);
   const resetMovie = useGameManager((state) => state.resetMovie);
 
+  const hydrateHighScore = useGameManager((state) => state.hydrateHighScore);
+  const highScore = useGameManager((state) => state.highScore);
+  const currentScore = useGameManager((state) => state.currentScore);
+
   useEffect(() => {
-    if (movies.length > 0) {
-      console.log("Fetched Movies: ", movies);
-      RandomMovie();
-      return;
-    }
+    hydrateHighScore();
     FetchMovies();
-    console.log("Fetching movies...");
-  }, [movies]);
+  }, []);
 
   async function FetchMovies() {
     try {
       const res = await fetch("/api/fetchMovie");
-      if (!res.ok) {
-        throw new Error("Network response was not ok");
-      }
+      if (!res.ok) throw new Error("Network response was not ok");
       const data = await res.json();
       setMovies(data);
+      if (data.length > 0) RandomMovie(data);
     } catch (error) {
       console.error("Error fetching movies:", error);
     }
   }
 
-  function RandomMovie() {
-    if (movies.length === 0) return;
-    const randomIndex = Math.floor(Math.random() * movies.length);
-    setCurrentMovie(movies[randomIndex]);
-    useGameManager.getState().setCurrentMovie(movies[randomIndex].tmdb_id);
-    console.log("Random Movie Selected: ", movies[randomIndex]);
+  function RandomMovie(sourceMovies = movies) {
+    if (sourceMovies.length === 0) {
+      setOutOfMovies(true);
+      setCurrentMovie(null);
+      return;
+    }
+    const randomIndex = Math.floor(Math.random() * sourceMovies.length);
+    const movie = sourceMovies[randomIndex];
+
+    setCurrentMovie(movie);
+    useGameManager.getState().setCurrentMovie(movie.tmdb_id);
+    setMovies((prev) => prev.filter((_, i) => i !== randomIndex));
+    console.log("Random Movie Selected:", movie);
   }
 
-  if (attempts == 0 && gameResult !== "Win") {
-    setGameResult("Lose");
-  }
+  useEffect(() => {
+    if (attempts === 0 && gameResult !== "Win") {
+      setGameResult("Lose");
+    }
+  }, [attempts, gameResult, setGameResult]);
 
-  async function NextMovie() {
+  function NextMovie() {
+    if (movies.length === 0) {
+      setOutOfMovies(true);
+      return;
+    }
     resetMovie();
     RandomMovie();
     setAttempts(3);
@@ -67,22 +79,35 @@ export default function Game() {
     resetGuessesList();
   }
 
-  const hydrateHighScore = useGameManager((state) => state.hydrateHighScore);
-  const highScore = useGameManager((state) => state.highScore);
-
-  useEffect(() => {
-    hydrateHighScore(); // only runs on client
-  }, []);
+  if (outOfMovies) {
+    return (
+      <div className="game-page">
+        <h1>You've gone through all the movies!</h1>
+        <p>Final Score: {currentScore}</p>
+        <p>Highest Score: {highScore}</p>
+        <button
+          onClick={() => {
+            resetGame();
+            FetchMovies();
+            setOutOfMovies(false);
+          }}
+        >
+          Restart
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="game-page">
       <Stat
         title="Score"
-        value={useGameManager((state) => state.currentScore)}
+        value={currentScore}
         right={true}
-        subvalue={useGameManager((state) => state.highScore)}
+        subvalue={highScore}
         subvaluetitle="Highest"
       />
+
       {gameResult === "Win" ? (
         <h1>Great guess!</h1>
       ) : gameResult === "Lose" ? (
@@ -90,9 +115,7 @@ export default function Game() {
       ) : (
         <h1>Which Movie is this?</h1>
       )}
-      {/*<p>Current Movie: {zustandCurrentMovie}</p>
-      <p>Current attempts: {attempts}</p>
-      <button onClick={() => decreaseAttempt()}>Reveal</button>*/}
+
       <Clapper
         image={currentMovie ? currentMovie.poster : "/placeholder-image.png"}
         title={currentMovie ? currentMovie.title : "Loading..."}
@@ -101,25 +124,28 @@ export default function Game() {
         badDescription={currentMovie ? currentMovie.baddesc : "Loading..."}
         reveal={attempts}
       />
-      {gameResult == "Win" && <button onClick={() => NextMovie()}>Next</button>}
+
+      {gameResult === "Win" && <button onClick={NextMovie}>Next</button>}
+
       <p className="attempts-counter">
         You have <span>{attempts}</span> attempts left!
       </p>
+
       {attempts > 0 && <Search />}
+
       <div>
-        {[...guesses].reverse().map((guess, index) => {
-          return (
-            <GuessAttempt
-              title={guess.title}
-              year={guess.year}
-              image={guess.image}
-              correct={guess.correct}
-              key={index}
-            />
-          );
-        })}
+        {[...guesses].reverse().map((guess, index) => (
+          <GuessAttempt
+            key={index}
+            title={guess.title}
+            year={guess.year}
+            image={guess.image}
+            correct={guess.correct}
+          />
+        ))}
       </div>
-      {showOverview && (
+
+      {showOverview && currentMovie && (
         <MovieOverview
           title={currentMovie.title}
           year={currentMovie.year}
@@ -128,7 +154,8 @@ export default function Game() {
           link={currentMovie.watchurl}
         />
       )}
-      {gameResult == "Lose" && <Results fetchNewMovie={RandomMovie} />}
+
+      {gameResult === "Lose" && <Results fetchNewMovie={RandomMovie} />}
     </div>
   );
 }
