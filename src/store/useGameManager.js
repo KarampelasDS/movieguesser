@@ -53,6 +53,7 @@ const useGameManager = create(
           get().setCurrentScore(newScore); // auto-updates highScore
           get().addGuess({ title, year, image, correct: true });
           get().setAttempts(0);
+          get().addPastMovie(get().currentMovie);
         } else {
           get().addGuess({ title, year, image, correct: false });
           get().decreaseAttempts();

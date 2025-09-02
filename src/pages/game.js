@@ -25,6 +25,9 @@ export default function Game() {
   const resetGuessesList = useGameManager((state) => state.resetGuessesList);
   const resetMovie = useGameManager((state) => state.resetMovie);
 
+  const pastMovies = useGameManager((state) => state.pastMovies);
+  const addPastMovie = useGameManager((state) => state.addPastMovie);
+
   const hydrateHighScore = useGameManager((state) => state.hydrateHighScore);
   const highScore = useGameManager((state) => state.highScore);
   const currentScore = useGameManager((state) => state.currentScore);
@@ -159,7 +162,11 @@ export default function Game() {
           link={currentMovie.watchurl}
         />
       )}
-
+      {pastMovies.map((movie, index) => (
+        <div key={index}>
+          <p>{movie}</p>
+        </div>
+      ))}
       {gameResult === "Lose" && <Results restartGame={restartGame} />}
     </div>
   );
