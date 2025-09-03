@@ -6,18 +6,22 @@ import SidebarMovie from "./SidebarMovie.jsx";
 export default function Sidebar() {
   const [open, setOpen] = useState(false);
   const pastMovies = useGameManager((state) => state.pastMovies);
+
   return (
-    <div className="sidebar" onClick={() => setOpen(!open)}>
-      <Stat title={"Movies"} value={pastMovies.length} />
+    <div className="sidebar">
+      <span
+        className={`sidebar-handle ${open ? "open" : ""}`}
+        onClick={() => setOpen(!open)}
+      >
+        {open ? "<" : ">"} Movies:{pastMovies.length}
+      </span>
       {open && (
         <div className="sidebar-content">
-          {pastMovies.map((movie) => {
-            return (
-              <div key={movie.id}>
-                <SidebarMovie movie={movie} />
-              </div>
-            );
-          })}
+          {[...pastMovies].reverse().map((movie) => (
+            <div key={movie.id}>
+              <SidebarMovie movie={movie} />
+            </div>
+          ))}
         </div>
       )}
     </div>

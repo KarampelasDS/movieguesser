@@ -437,3 +437,58 @@ a {
   text-align: right;
   font-weight: bold;
 }
+
+.sidebar-handle {
+  display: block;
+  position: fixed;
+  background-color: #1b1b1b;
+  font-size: 42px;
+  padding: 20px 40px;
+  top: 0;
+  left: 0;
+  border-radius: 0px 0px 14px 0px;
+  transition: all 0.3s ease-in-out;
+}
+
+.open {
+  width: 400px;
+}
+
+.sidebar-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: fixed;
+  top: 90px;
+  left: 0;
+  background-color: #1b1b1b;
+  width: 400px;
+  max-width: 400px;
+  overflow: auto;
+  min-height: 100vh;
+  padding-bottom: 100px;
+}
+
+.sidebar-content img {
+  width: 90px;
+  height: 125px;
+  border-radius: 5px;
+}
+
+.SidebarMovieContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-items: top;
+}
+
+.SidebarMovieContent {
+  font-size: 24px;
+  overflow: auto;
+  max-width: 200px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}

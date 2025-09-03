@@ -22,10 +22,7 @@ const useGameManager = create(
           return { currentScore: newScore, highScore: newHigh };
         });
       },
-      pastMovies: [
-        { id: "testid", title: "Test Movie" },
-        { id: "testid2", title: "Test Movie 2" },
-      ],
+      pastMovies: [],
       addPastMovie: (movie) =>
         set((state) => ({ pastMovies: [...state.pastMovies, movie] })),
       setShowOverview: (newState) => set({ showOverview: newState }),
@@ -50,7 +47,8 @@ const useGameManager = create(
           currentScore: 0,
         }),
       guessMovie: (guess, title, year, image) => {
-        if (guess == get().currentMovie) {
+        console.log(get().currentMovie);
+        if (guess == get().currentMovie.tmdb_id) {
           get().setGameResult("Win");
           const newScore = get().currentScore + 1;
           get().setCurrentScore(newScore); // auto-updates highScore

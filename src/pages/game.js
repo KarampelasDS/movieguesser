@@ -63,7 +63,7 @@ export default function Game() {
     const movie = sourceMovies[randomIndex];
 
     setCurrentMovie(movie);
-    useGameManager.getState().setCurrentMovie(movie.tmdb_id);
+    useGameManager.getState().setCurrentMovie(movie);
     setMovies((prev) => prev.filter((_, i) => i !== randomIndex));
     console.log("Random Movie Selected:", movie);
   }
@@ -97,7 +97,7 @@ export default function Game() {
   if (outOfMovies) {
     return (
       <div className="game-page">
-        <h1>You haveve gone through all the movies!</h1>
+        <h1>You have gone through all the movies!</h1>
         <p>Final Score: {currentScore}</p>
         <p>Highest Score: {highScore}</p>
         <button onClick={restartGame}>Restart</button>
