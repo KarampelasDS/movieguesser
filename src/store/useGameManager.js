@@ -22,7 +22,10 @@ const useGameManager = create(
           return { currentScore: newScore, highScore: newHigh };
         });
       },
-      pastMovies: [],
+      pastMovies: [
+        { id: "testid", title: "Test Movie" },
+        { id: "testid2", title: "Test Movie 2" },
+      ],
       addPastMovie: (movie) =>
         set((state) => ({ pastMovies: [...state.pastMovies, movie] })),
       setShowOverview: (newState) => set({ showOverview: newState }),

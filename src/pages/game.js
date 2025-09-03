@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import MovieOverview from "@/components/MovieOverview/MovieOverview";
 import Results from "@/components/Results/Results";
 import Stat from "@/components/Stat/Stat";
+import Sidebar from "@/components/Sidebar/Sidebar";
 
 export default function Game() {
   const [allMovies, setAllMovies] = useState([]);
@@ -106,6 +107,7 @@ export default function Game() {
 
   return (
     <div className="game-page">
+      <Sidebar />
       <Stat
         title="Score"
         value={currentScore}
@@ -162,11 +164,6 @@ export default function Game() {
           link={currentMovie.watchurl}
         />
       )}
-      {pastMovies.map((movie, index) => (
-        <div key={index}>
-          <p>{movie}</p>
-        </div>
-      ))}
       {gameResult === "Lose" && <Results restartGame={restartGame} />}
     </div>
   );
