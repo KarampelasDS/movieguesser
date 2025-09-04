@@ -13,6 +13,59 @@ export default function Search(props) {
   const attempts = useGameManager((state) => state.currentAttempts);
   const [page, setPage] = useState(1);
   const [maxPage, setMaxPage] = useState(null);
+  const blacklist = [
+    "porn",
+    "porno",
+    "pornography",
+    "xxx",
+    "erotic",
+    "erotica",
+    "nude",
+    "nudity",
+    "naked",
+    "sex",
+    "sexual",
+    "fetish",
+    "fetishes",
+    "bdsm",
+    "bondage",
+    "kink",
+    "hentai",
+    "softcore",
+    "hardcore",
+    "adult",
+    "playboy",
+    "escort",
+    "camgirl",
+    "cam boy",
+    "stripper",
+    "striptease",
+    "ladies of the night",
+    "erotism",
+    "milf",
+    "barely legal",
+    "spanking",
+    "lingerie",
+    "provocative",
+    "seduction",
+    "intimate",
+    "hot girl",
+    "hot guy",
+    "orgy",
+    "squirt",
+    "sexually explicit",
+    "fetishistic",
+    "bdsm",
+    "fetish",
+    "fetishism",
+    "bondage",
+    "masturbation",
+    "intercourse",
+    "adult film",
+    "sex tape",
+    "sexual activity",
+    "naughties",
+  ];
 
   useEffect(() => {
     setQuery("");
@@ -41,8 +94,15 @@ export default function Search(props) {
       }
       const data = await res.json();
       console.log("TMDB:", data);
-      data.results.sort((a, b) => b.popularity - a.popularity);
-      setSearchlist(data.results.map((item) => item));
+
+      const filteredResults = data.results
+        .filter((item) => {
+          const title = (item.title || item.name || "").toLowerCase();
+          return !blacklist.some((word) => title.includes(word));
+        })
+        .sort((a, b) => b.popularity - a.popularity);
+
+      setSearchlist(filteredResults);
       setMaxPage(data.total_pages);
     } catch (error) {
       console.error("Error fetching movies:", error);
