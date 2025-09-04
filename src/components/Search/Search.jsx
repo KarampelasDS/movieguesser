@@ -41,6 +41,7 @@ export default function Search(props) {
       }
       const data = await res.json();
       console.log("TMDB:", data);
+      data.results.sort((a, b) => b.popularity - a.popularity);
       setSearchlist(data.results.map((item) => item));
       setMaxPage(data.total_pages);
     } catch (error) {
