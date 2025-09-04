@@ -15,6 +15,7 @@ export default function Results(props) {
           <button
             onClick={() => {
               props.restartGame();
+              props.showResults(false);
             }}
           >
             Play Again

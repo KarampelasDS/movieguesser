@@ -22,6 +22,7 @@ export default function Game() {
   const setShowOverview = useGameManager((state) => state.setShowOverview);
   const gameResult = useGameManager((state) => state.gameResult);
   const setGameResult = useGameManager((state) => state.setGameResult);
+  const [showResults, setShowResults] = useState(false);
   const resetGame = useGameManager((state) => state.resetGame);
   const resetGuessesList = useGameManager((state) => state.resetGuessesList);
   const resetMovie = useGameManager((state) => state.resetMovie);
@@ -137,6 +138,10 @@ export default function Game() {
         <button onClick={NextMovie}>Next</button>
       )}
 
+      {gameResult === "Lose" && (
+        <button onClick={() => setShowResults(true)}>End Run</button>
+      )}
+
       <p className="attempts-counter">
         You have <span>{attempts}</span> attempts left!
       </p>
@@ -164,7 +169,9 @@ export default function Game() {
           link={currentMovie.watchurl}
         />
       )}
-      {gameResult === "Lose" && <Results restartGame={restartGame} />}
+      {showResults == true && (
+        <Results restartGame={restartGame} showResults={setShowResults} />
+      )}
     </div>
   );
 }
