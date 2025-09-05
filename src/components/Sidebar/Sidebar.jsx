@@ -17,11 +17,15 @@ export default function Sidebar() {
       </span>
       {open && (
         <div className="sidebar-content">
-          {[...pastMovies].reverse().map((movie) => (
-            <div key={movie.id}>
-              <SidebarMovie movie={movie} />
-            </div>
-          ))}
+          {pastMovies.length > 0 ? (
+            [...pastMovies].reverse().map((movie) => (
+              <div key={movie.id}>
+                <SidebarMovie movie={movie} />
+              </div>
+            ))
+          ) : (
+            <span>No movies guessed yet!</span>
+          )}
         </div>
       )}
     </div>
