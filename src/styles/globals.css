@@ -21,6 +21,7 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
   overflow-x: hidden;
+  margin-bottom: 200px;
 }
 
 .clapper {
@@ -470,6 +471,7 @@ a {
   overflow: auto;
   min-height: 100vh;
   padding-bottom: 100px;
+  z-index: 1;
 }
 
 .sidebar-content img {
@@ -491,4 +493,146 @@ a {
   max-width: 200px;
   overflow-wrap: break-word;
   word-wrap: break-word;
+}
+
+@media only screen and (max-width: 1200px) {
+  .clapper-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .clapper {
+    max-width: 900px;
+    min-width: 600px;
+  }
+
+  h1 {
+    margin-top: 130px;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .clapper-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .clapper {
+    max-width: 400px;
+    min-width: 300px;
+  }
+
+  .PosterHolder {
+    max-width: 150px;
+    max-height: 225px;
+    min-width: 150px;
+    min-height: 225px;
+  }
+
+  .BadDescription {
+    font-size: 24px;
+    text-align: center;
+    max-width: 300px;
+    min-width: unset;
+  }
+
+  .MovieAttribute {
+    flex-direction: column;
+    font-size: 24px;
+    gap: 10px;
+  }
+
+  .AttributeField {
+    font-size: 24px;
+    max-width: 300px;
+  }
+  .AttributeValue {
+    font-size: 18px;
+  }
+  .game-page h1 {
+    font-size: 32px;
+    text-align: center;
+    max-width: 300px;
+  }
+  .search {
+    min-width: 300px;
+    width: 90vw;
+  }
+  .searchbar input {
+    font-size: 24px;
+    height: 65px;
+  }
+  .search-results-container {
+    min-width: 300px;
+    width: 90vw;
+  }
+  .search-results-details {
+    font-size: 18px;
+    max-width: 200px;
+  }
+  .search-results-image {
+    width: 70px;
+    height: 100px;
+    margin-right: 2rem;
+  }
+  .GuessAttempt {
+    min-width: 300px;
+    width: 90vw;
+  }
+  .movie-overview-container {
+    margin-top: 50px;
+  }
+  .movie-overview-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .Stat {
+    font-size: 24px !important;
+    padding: 10px 20px !important;
+  }
+
+  .StatSub {
+    font-size: 16px !important;
+  }
+  .sidebar-handle {
+    font-size: 24px !important;
+    padding: 10px 20px !important;
+  }
+
+  .open {
+    width: 250px;
+  }
+
+  .sidebar-content {
+    width: 250px;
+    max-width: 250px;
+    top: 40px;
+  }
+
+  .GuessResult {
+    font-size: 18px;
+    padding: 2px;
+  }
+  .GuessResult svg {
+    width: 70px;
+    height: 70px;
+  }
+
+  .search-results-image {
+    margin-right: 1rem;
+  }
+
+  .search-results {
+    padding: 10px 20px;
+  }
+
+  #Year {
+    width: unset !important;
+  }
+
+  h1 {
+    margin-top: 70px;
+  }
 }
