@@ -635,4 +635,62 @@ a {
   h1 {
     margin-top: 70px;
   }
+
+  .movie-overview-wrapper {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    z-index: 10;
+    overflow-y: auto;
+    padding-bottom: 30px;
+  }
+
+  .movie-overview-controls {
+    gap: 30px;
+    flex-direction: column;
+  }
+
+  .movie-overview-content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .movie-overview-content-container h2 {
+    font-size: 42px;
+  }
+
+  .movie-overview-content-container p {
+    font-size: 18px;
+    max-height: 200px;
+    max-width: 80%;
+    overflow-y: auto;
+  }
+
+  .movie-overview-image-container img {
+    width: 190px;
+    height: 275px;
+    margin: 0px;
+  }
+
+  .movie-overview-controls button {
+    font-size: 24px;
+    padding: 10px 20px;
+    width: 70%;
+    margin: auto;
+    justify-content: space-around;
+  }
+
+  .movie-overview-controls a {
+    justify-content: space-around;
+    gap: 0px;
+    width: 100%;
+  }
+
+  .SidebarMovieContent {
+    font-size: 18px;
+    max-width: 100px;
+  }
 }
