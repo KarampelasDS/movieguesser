@@ -54,7 +54,6 @@ export default function Search(props) {
     "sexual activity",
     "naughties",
     "tits",
-    "tit",
     "boobs",
     "cunnilingus",
     "fellatio",
