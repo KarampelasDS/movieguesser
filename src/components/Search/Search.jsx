@@ -76,6 +76,7 @@ export default function Search(props) {
 
   useEffect(() => {
     setQuery("");
+    inputRef.current.focus();
   }, [attempts]);
 
   useEffect(() => {
