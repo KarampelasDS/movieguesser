@@ -73,6 +73,7 @@ export default function Search(props) {
     "pornographic",
     "adult content",
     "nun in rope hell",
+    "nude beach",
   ];
 
   useEffect(() => {
