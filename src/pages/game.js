@@ -2,7 +2,7 @@ import Clapper from "@/components/Clapper/Clapper";
 import GuessAttempt from "@/components/GuessAttempt/GuessAttempt";
 import Search from "@/components/Search/Search";
 import useGameManager from "@/store/useGameManager";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import MovieOverview from "@/components/MovieOverview/MovieOverview";
 import Results from "@/components/Results/Results";
 import Stat from "@/components/Stat/Stat";
@@ -15,6 +15,8 @@ export default function Game() {
   const [currentMovie, setCurrentMovie] = useState();
   const [outOfMovies, setOutOfMovies] = useState(false);
   const [loading, setLoading] = useState(true);
+  const maxRetries = 5;
+  const attemptsRef = useRef(0);
 
   const attempts = useGameManager((state) => state.currentAttempts);
   const setAttempts = useGameManager((state) => state.setAttempts);
@@ -28,6 +30,7 @@ export default function Game() {
   const resetGame = useGameManager((state) => state.resetGame);
   const resetGuessesList = useGameManager((state) => state.resetGuessesList);
   const resetMovie = useGameManager((state) => state.resetMovie);
+  const [networkError, setNetworkError] = useState(false);
 
   const pastMovies = useGameManager((state) => state.pastMovies);
   const addPastMovie = useGameManager((state) => state.addPastMovie);
@@ -52,13 +55,24 @@ export default function Game() {
       const data = await res.json();
       setAllMovies(data);
       setMovies(data);
-      console.log("Fetched Movies:", data);
       if (data.length > 0) RandomMovie(data);
       setLoading(false);
+      setNetworkError(false);
     } catch (error) {
       console.error("Error fetching movies:", error);
+      setNetworkError(true);
     }
   }
+
+  useEffect(() => {
+    if (networkError) {
+      const retry = setTimeout(() => {
+        FetchMovies();
+      }, 2000); // retry after 2s
+
+      return () => clearTimeout(retry);
+    }
+  }, [networkError]);
 
   function RandomMovie(sourceMovies = movies) {
     if (sourceMovies.length === 0) {
@@ -131,6 +145,12 @@ export default function Game() {
         <h1>Which Movie is this?</h1>
       )}
 
+      {networkError && (
+        <div style={{ color: "red", textAlign: "center" }}>
+          <p>Network error occurred while fetching movies. Retrying...</p>
+        </div>
+      )}
+
       <Clapper
         image={currentMovie ? currentMovie.poster : "/placeholder-image.png"}
         title={currentMovie ? currentMovie.title : "Loading..."}
@@ -156,7 +176,7 @@ export default function Game() {
         <div role="status">
           <svg
             aria-hidden="true"
-            class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+            className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
             viewBox="0 0 100 101"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -170,7 +190,7 @@ export default function Game() {
               fill="currentFill"
             />
           </svg>
-          <span class="sr-only">Loading...</span>
+          <span className="sr-only">Loading...</span>
         </div>
       )}
       {attempts > 0 && !loading && <Search />}
