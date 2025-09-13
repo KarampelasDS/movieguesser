@@ -24,7 +24,7 @@ export default function SidebarMovie({ movie }) {
         onClick={() => {
           setShowOverviewSidebar(movie.id);
         }}
-        size={20}
+        size={30}
       />
       {showOverviewSidebar == movie.id && (
         <MovieOverview
