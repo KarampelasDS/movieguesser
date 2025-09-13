@@ -149,7 +149,7 @@ body {
   color: #ffffff;
   font-family: "DM Mono", monospace;
   font-weight: 400;
-  margin-top: -10px;
+  margin-top: 10px;
   margin-bottom: 20px;
 }
 
@@ -493,6 +493,21 @@ a {
   max-width: 200px;
   overflow-wrap: break-word;
   word-wrap: break-word;
+}
+
+.Button {
+  background-color: #1b1b1b;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 24px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.Button:hover {
+  background-color: #333;
 }
 
 @media only screen and (max-width: 1200px) {

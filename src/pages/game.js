@@ -7,6 +7,7 @@ import MovieOverview from "@/components/MovieOverview/MovieOverview";
 import Results from "@/components/Results/Results";
 import Stat from "@/components/Stat/Stat";
 import Sidebar from "@/components/Sidebar/Sidebar";
+import Button from "@/components/Button/Button";
 
 export default function Game() {
   const [allMovies, setAllMovies] = useState([]);
@@ -140,11 +141,11 @@ export default function Game() {
       />
 
       {(gameResult === "Win" || movies.length === 0) && (
-        <button onClick={NextMovie}>Next</button>
+        <Button text="Next Movie" onClick={NextMovie} />
       )}
 
       {gameResult === "Lose" && (
-        <button onClick={() => setShowResults(true)}>End Run</button>
+        <Button text="End Run" onClick={() => setShowResults(true)} />
       )}
 
       <p className="attempts-counter">

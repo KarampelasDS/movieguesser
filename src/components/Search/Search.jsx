@@ -74,6 +74,7 @@ export default function Search(props) {
     "adult content",
     "nun in rope hell",
     "nude beach",
+    "adultery alumni association",
   ];
 
   useEffect(() => {
