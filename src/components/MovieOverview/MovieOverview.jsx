@@ -27,7 +27,7 @@ export default function MovieOverview(props) {
               Watch Now <FaCirclePlay size={50} />
             </a>
           </button>
-          <button onClick={() => setShowOverview(false)}>
+          <button onClick={props.closeOverview}>
             Close <IoMdCloseCircle size={70} />
           </button>
         </div>

@@ -303,6 +303,7 @@ body {
   height: 100vh;
   position: fixed;
   top: 0;
+  z-index: 10;
   display: flex;
 }
 
@@ -335,9 +336,11 @@ body {
 }
 
 .movie-overview-content img {
-  border-radius: 10px;
-  object-fit: cover;
-  margin-right: 60px;
+  border-radius: 10px !important;
+  object-fit: cover !important;
+  margin-right: 60px !important;
+  width: 300px !important;
+  height: 450px !important;
 }
 
 .movie-overview-controls {
@@ -617,12 +620,12 @@ a {
   }
 
   .open {
-    width: 250px;
+    width: 300px;
   }
 
   .sidebar-content {
-    width: 250px;
-    max-width: 250px;
+    width: 300px;
+    max-width: 300px;
     top: 40px;
   }
 
@@ -687,7 +690,7 @@ a {
   .movie-overview-image-container img {
     width: 190px;
     height: 275px;
-    margin: 0px;
+    margin: 0px !important;
   }
 
   .movie-overview-controls button {
@@ -718,5 +721,21 @@ a {
     flex-direction: column;
     align-items: center;
     gap: 10px;
+  }
+
+  .SidebarMovieContent {
+    font-size: 20px;
+    max-width: 120px;
+  }
+
+  .MovieInfoSidebar {
+    position: relative;
+    top: 0px;
+  }
+
+  .SidebarMovieContainer {
+    justify-items: space-around;
+    gap: 10px;
+    width: 100%;
   }
 }

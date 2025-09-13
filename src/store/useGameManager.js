@@ -8,6 +8,7 @@ const useGameManager = create(
       currentAttempts: 3,
       setCurrentMovie: (newMovie) => set({ currentMovie: newMovie }),
       showOverview: false,
+      showOverviewSidebar: 0,
       currentScore: 0,
       highScore: 0, // 🏆 persisted manually
       setCurrentScore: (newScore) => {
@@ -26,6 +27,8 @@ const useGameManager = create(
       addPastMovie: (movie) =>
         set((state) => ({ pastMovies: [...state.pastMovies, movie] })),
       setShowOverview: (newState) => set({ showOverview: newState }),
+      setShowOverviewSidebar: (newState) =>
+        set({ showOverviewSidebar: newState }),
       resetMovie: () => set({ currentMovie: "loading..." }),
       decreaseAttempts: () =>
         set((state) => ({ currentAttempts: state.currentAttempts - 1 })),

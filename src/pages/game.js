@@ -214,6 +214,7 @@ export default function Game() {
           description={currentMovie.overview}
           image={currentMovie.poster}
           link={currentMovie.watchurl}
+          closeOverview={() => setShowOverview(false)}
         />
       )}
       {showResults == true && (
