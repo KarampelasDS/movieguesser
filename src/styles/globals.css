@@ -419,6 +419,15 @@ a {
   position: relative;
 }
 
+.resultsCard {
+  background-color: #454545cd;
+  width: 80%;
+  margin: auto;
+  border-radius: 20px;
+  padding: 20px;
+  min-width: 300px;
+}
+
 .resultsScreen .background img {
   width: 100vw;
   height: 100vh;
@@ -760,5 +769,9 @@ a {
     justify-items: space-around;
     gap: 10px;
     width: 100%;
+  }
+
+  .resultsScreen .background img {
+    object-fit: cover;
   }
 }
