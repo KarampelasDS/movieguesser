@@ -69,15 +69,15 @@ export default function Results(props) {
     "That's a pleasant surprise",
   ];
 
-  const badScore = 3;
-  const medScore = 5;
+  const badScore = 4;
+  const medScore = 6;
 
   const verdict =
-    score < badScore ? badGifList : score > medScore ? medGifList : goodGifList;
+    score < badScore ? badGifList : score < medScore ? medGifList : goodGifList;
   const verdictText =
     score < badScore
       ? badTextList
-      : score > medScore
+      : score < medScore
       ? medTextList
       : goodTextList;
 
