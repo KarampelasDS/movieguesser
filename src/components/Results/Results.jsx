@@ -70,7 +70,7 @@ export default function Results(props) {
   ];
 
   const badScore = 4;
-  const medScore = 6;
+  const medScore = 8;
 
   const verdict =
     score < badScore ? badGifList : score < medScore ? medGifList : goodGifList;
