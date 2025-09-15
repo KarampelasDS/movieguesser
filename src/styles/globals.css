@@ -57,6 +57,19 @@ body {
   border: 3px solid #ffffff;
   max-height: 320px;
   max-width: 215px;
+  overflow: hidden;
+}
+
+.blur1 {
+  filter: blur(20px) grayscale(1);
+}
+
+.blur2 {
+  filter: blur(15px) grayscale(0.5);
+}
+
+.blur3 {
+  filter: blur(10px);
 }
 
 .PosterHolder img {

@@ -23,6 +23,12 @@ const chalktastic = localFont({
   display: "swap",
 });
 
+const blurClasses = {
+  3: "blur1",
+  2: "blur2",
+  1: "blur3",
+};
+
 export default function Clapper(props) {
   return (
     <div className="flex flex-col items-center ">
@@ -36,7 +42,10 @@ export default function Clapper(props) {
           />
           <div className="clapper-content">
             <div className="PosterHolder">
-              {props.reveal <= 0 && <img src={props.image} />}
+              <img
+                className={blurClasses[props.reveal] || ""}
+                src={props.image}
+              />
             </div>
             <div className="MovieContent">
               <div className={`BadDescription ${courierPrime.className}`}>
