@@ -420,12 +420,18 @@ a {
 }
 
 .resultsCard {
-  background-color: #454545cd;
-  width: 80%;
+  width: 100%;
   margin: auto;
   border-radius: 20px;
   padding: 20px;
   min-width: 300px;
+  font-size: 5rem;
+  font-family: "Courier Prime", monospace;
+}
+
+.resultsCard h2 {
+  color: yellow;
+  font-size: 7rem;
 }
 
 .resultsScreen .background img {
@@ -436,6 +442,7 @@ a {
   object-fit: fill;
   position: absolute;
   z-index: 8;
+  filter: brightness(0.4);
 }
 
 .Stat {
@@ -773,5 +780,14 @@ a {
 
   .resultsScreen .background img {
     object-fit: cover;
+  }
+
+  .resultsCard h2 {
+    color: yellow;
+    font-size: 5rem;
+  }
+
+  .resultsCard {
+    font-size: 4rem;
   }
 }
