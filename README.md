@@ -1,5 +1,7 @@
 # MovieGuesser 🎬
 
+You can play the game [here](https://movieguesser-ds.vercel.app)!
+
 **MovieGuesser** is a fun and interactive web app where you guess movies based on hilariously bad descriptions. Along the way, you can discover new movies to add to your watchlist — and compete with your friends to see who can guess the most!
 
 Built with **Next.js**, it uses a **MongoDB** database to store custom movies and bad descriptions, and leverages **TMDb (The Movie Database) API** to fetch and search movies from a public API.
@@ -21,9 +23,8 @@ Built with **Next.js**, it uses a **MongoDB** database to store custom movies an
 1. Open the app in your browser.
 2. Start a new game and read the funny movie descriptions.
 3. Guess the correct movie to score points.
-4. Challenge your friends to beat your score.
-5. Discover new movies through the game or the search functionality.
-6. Add movies you like to your watchlist.
+4. Challenge your friends to beat your high score.
+5. Discover new movies by playing.
 
 ---
 
