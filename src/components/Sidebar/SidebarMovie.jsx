@@ -21,6 +21,7 @@ export default function SidebarMovie({ movie }) {
       <BsInfoCircleFill
         className="MovieInfoSidebar"
         style={{ cursor: "pointer" }}
+        color="#ff4c4c"
         onClick={() => {
           setShowOverviewSidebar(movie.id);
         }}

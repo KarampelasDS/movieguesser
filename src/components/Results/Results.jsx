@@ -35,6 +35,7 @@ export default function Results(props) {
     "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExOTVtM2gwcmwzZW1teW9zZTd3ZjMzYm0ybXR3cTVkbGhjdHdiODV2cCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/artj92V8o75VPL7AeQ/giphy.gif",
     "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcnVraWc0MHRjNHE4dnFwbHgya2J4MngyYjdyMTFycjZmdHZ2YmFscSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vmon3eAOp1WfK/giphy.gif",
     "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdGw3cXl6eDFlODB0M3ZrZ2RhcG94NHE3eHJya3YycDB0OHJiaDkzdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t3sZxY5zS5B0z5zMIz/giphy.gif",
+    "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGFsczUzNmx6NjRkazlhN21lM2Yxejcxd2M1Zmdkenl0Nmw3b25rbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NxL3NQUd5RNWT0xT14/giphy.gif",
   ];
 
   const badTextList = [

@@ -50,6 +50,7 @@ export default function MovieAttribute(props) {
             {props.info && (
               <BsInfoCircleFill
                 style={{ cursor: "pointer" }}
+                color="#ff4c4c"
                 onClick={() => {
                   setShowOverview(true);
                 }}

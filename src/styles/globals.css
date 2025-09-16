@@ -452,6 +452,7 @@ a {
   font-size: 42px;
   padding: 20px 40px;
   top: 0;
+  font-family: "Courier Prime", monospace;
 }
 
 .StatLeft {
@@ -476,7 +477,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  gap: 10px;
   position: fixed;
   background-color: #1b1b1b;
   font-size: 42px;
@@ -485,6 +486,12 @@ a {
   left: 0;
   border-radius: 0px 0px 14px 0px;
   z-index: 1;
+  font-family: "Courier Prime", monospace;
+}
+
+.sidebar-handle span {
+  color: #ff4c4c;
+  font-weight: bold;
 }
 
 .SidebarArrow {
@@ -494,10 +501,11 @@ a {
 }
 
 .open {
-  width: 400px;
+  width: 450px;
 }
 
 .sidebar-content {
+  border-top: 4px solid #ff4c4c;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -508,8 +516,8 @@ a {
   top: 90px;
   left: 0;
   background-color: #1b1b1b;
-  width: 400px;
-  max-width: 400px;
+  width: 450px;
+  max-width: 450px;
   overflow: auto;
   min-height: 100vh;
   padding-bottom: 100px;
@@ -527,6 +535,8 @@ a {
   flex-direction: row;
   gap: 15px;
   align-items: top;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #272727;
 }
 
 .SidebarMovieContent {
@@ -574,6 +584,26 @@ button:disabled {
   }
   100% {
     font-size: 42px;
+  }
+}
+
+.popSmall {
+  animation: popSmall 0.3s ease;
+}
+
+@keyframes popSmall {
+  0% {
+    font-size: 24px;
+  }
+  25% {
+    color: yellow;
+  }
+  50% {
+    font-size: 32px;
+    color: yellow;
+  }
+  100% {
+    font-size: 24px;
   }
 }
 
@@ -836,6 +866,22 @@ button:disabled {
     }
     100% {
       font-size: 24px;
+    }
+  }
+
+  @keyframes popSmall {
+    0% {
+      font-size: 16px;
+    }
+    25% {
+      color: yellow;
+    }
+    50% {
+      font-size: 32px;
+      color: yellow;
+    }
+    100% {
+      font-size: 16px;
     }
   }
 }

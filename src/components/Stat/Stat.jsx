@@ -30,7 +30,9 @@ export default function Stat(props) {
         {props.subvalue != null && (
           <div className="StatSub">
             <span className="StatSubTitle">{props.subvaluetitle}: </span>
-            <span className={`StatSubValue ${animateSubValue ? "pop" : ""} `}>
+            <span
+              className={`StatSubValue ${animateSubValue ? "popSmall" : ""} `}
+            >
               {props.subvalue}
             </span>
           </div>
