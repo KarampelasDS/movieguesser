@@ -4,11 +4,25 @@ import { persist } from "zustand/middleware";
 const useGameManager = create(
   persist(
     (set, get) => ({
+      allowSound: true,
+      setAllowSound: (newSound) => {
+        set({ allowSound: newSound });
+      },
+      playConfetti: () => {
+        var confettiAudio = new Audio("/sounds/confetti.mp3");
+        confettiAudio.play();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      },
+      playChalk: () => {
+        var num = Math.floor(Math.random() * 4) + 1;
+        var chalkAudio = new Audio(`/sounds/chalk/chalk${num}.mp3`);
+        chalkAudio.play();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      },
       currentMovie: "loading...",
       currentAttempts: 3,
       setCurrentMovie: (newMovie) => set({ currentMovie: newMovie }),
       showOverview: false,
-      canClick: true,
       showOverviewSidebar: 0,
       currentScore: 0,
       highScore: 0, // 🏆 persisted manually
@@ -43,7 +57,6 @@ const useGameManager = create(
       decreaseAttempts: () =>
         set((state) => ({
           currentAttempts: state.currentAttempts - 1,
-          canClick: true,
         })),
       _hasHydrated: false,
       gameResult: "",
@@ -61,12 +74,18 @@ const useGameManager = create(
         console.log(get().currentMovie);
         if (guess == get().currentMovie.tmdb_id) {
           get().setGameResult("Win");
+          if (get().allowSound) {
+            get().playConfetti();
+          }
           const newScore = get().currentScore + 1;
           get().setCurrentScore(newScore); // auto-updates highScore
           get().addGuess({ title, year, image, correct: true });
           get().setAttempts(0);
           get().addPastMovie(get().currentMovie);
         } else {
+          if (get().allowSound) {
+            get().playChalk();
+          }
           get().addGuess({ title, year, image, correct: false });
           get().decreaseAttempts();
         }

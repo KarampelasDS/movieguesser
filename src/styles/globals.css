@@ -178,7 +178,6 @@ body {
   min-width: 760px;
   min-height: 110px;
   display: flex;
-  position: relative;
 }
 .searchbar input {
   width: 90%;
@@ -445,6 +444,14 @@ a {
   filter: brightness(0.4);
 }
 
+.SoundToggle {
+  display: block;
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+  cursor: pointer;
+}
+
 .Stat {
   display: block;
   position: fixed;
@@ -627,9 +634,18 @@ button:disabled {
   h1 {
     margin-top: 130px;
   }
+
+  .SoundToggle {
+    right: 10px;
+    top: 150px;
+  }
 }
 
 @media only screen and (max-width: 700px) {
+  .SoundToggle {
+    right: 10px;
+    top: 100px;
+  }
   .clapper-content {
     flex-direction: column;
     align-items: center;

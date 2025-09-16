@@ -8,6 +8,7 @@ import Results from "@/components/Results/Results";
 import Stat from "@/components/Stat/Stat";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import Button from "@/components/Button/Button";
+import SoundToggle from "@/components/SoundToggle/SoundToggle";
 
 export default function Game() {
   const [allMovies, setAllMovies] = useState([]);
@@ -136,6 +137,8 @@ export default function Game() {
         subvalue={highScore}
         subvaluetitle="Highest"
       />
+
+      <SoundToggle />
 
       {gameResult === "Win" ? (
         <h1>Great guess!</h1>
