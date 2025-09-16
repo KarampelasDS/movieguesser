@@ -20,7 +20,11 @@ export default function Sidebar() {
 
   return (
     <div className="sidebar">
-      <span className={`sidebar-handle ${open ? "open" : ""}`}>
+      <span
+        className={`sidebar-handle ${open ? "open" : ""} ${
+          animate ? "pop" : ""
+        }`}
+      >
         Movies:<span>{pastMovies.length}</span>{" "}
         {open ? (
           <IoIosArrowDropleftCircle

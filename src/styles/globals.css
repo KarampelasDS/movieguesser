@@ -400,7 +400,7 @@ a {
   position: fixed;
   top: 0;
   display: flex;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: #1b1b1b;
   justify-content: center;
   align-items: center;
   overflow: hidden;

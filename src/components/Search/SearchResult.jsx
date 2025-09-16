@@ -5,16 +5,14 @@ export default function SearchResult(props) {
   const canClick = useGameManager((state) => state.canClick);
 
   function Guess() {
-    if (canClick) {
-      guessMovie(
-        props.tmdbid,
-        props.title,
-        props.year,
-        `https://image.tmdb.org/t/p/w500${props.image}`
-      );
+    guessMovie(
+      props.tmdbid,
+      props.title,
+      props.year,
+      `https://image.tmdb.org/t/p/w500${props.image}`
+    );
 
-      console.log("Guessed:", props.tmdbid);
-    }
+    console.log("Guessed:", props.tmdbid);
   }
 
   return (

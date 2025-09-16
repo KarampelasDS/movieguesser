@@ -31,11 +31,7 @@ const useGameManager = create(
       setShowOverviewSidebar: (newState) =>
         set({ showOverviewSidebar: newState }),
       resetMovie: () => set({ currentMovie: "loading..." }),
-      decreaseAttempts: () =>
-        set((state) => ({
-          currentAttempts: state.currentAttempts - 1,
-          canClick: true,
-        })),
+
       setAttempts: (newAttempts) => set({ currentAttempts: newAttempts }),
       guessesList: [],
       resetGuessesList: () => set({ guessesList: [] }),
@@ -43,6 +39,11 @@ const useGameManager = create(
         set((state) => ({
           canClick: false,
           guessesList: [...state.guessesList, guess],
+        })),
+      decreaseAttempts: () =>
+        set((state) => ({
+          currentAttempts: state.currentAttempts - 1,
+          canClick: true,
         })),
       _hasHydrated: false,
       gameResult: "",
