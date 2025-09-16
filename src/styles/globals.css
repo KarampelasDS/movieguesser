@@ -557,6 +557,46 @@ button:disabled {
   cursor: default;
 }
 
+.pop {
+  animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+  0% {
+    font-size: 42px;
+  }
+  25% {
+    color: yellow;
+  }
+  50% {
+    font-size: 50px;
+    color: yellow;
+  }
+  100% {
+    font-size: 42px;
+  }
+}
+
+.popSmall {
+  animation: popSmall 0.3s ease;
+}
+
+@keyframes popSmall {
+  0% {
+    font-size: 24px;
+  }
+  25% {
+    color: yellow;
+  }
+  50% {
+    font-size: 32px;
+    color: yellow;
+  }
+  100% {
+    font-size: 24px;
+  }
+}
+
 @media only screen and (max-width: 1200px) {
   .clapper-content {
     flex-direction: column;
@@ -795,5 +835,37 @@ button:disabled {
 
   .resultsCard {
     font-size: 3rem;
+  }
+
+  @keyframes pop {
+    0% {
+      font-size: 24px;
+    }
+    25% {
+      color: yellow;
+    }
+    50% {
+      font-size: 32px;
+      color: yellow;
+    }
+    100% {
+      font-size: 24px;
+    }
+  }
+
+  @keyframes popSmall {
+    0% {
+      font-size: 16px;
+    }
+    25% {
+      color: yellow;
+    }
+    50% {
+      font-size: 32px;
+      color: yellow;
+    }
+    100% {
+      font-size: 16px;
+    }
   }
 }

@@ -36,7 +36,7 @@ export default function Sidebar() {
               </div>
             ))
           ) : (
-            <span>No movies guessed yet!</span>
+            <span className="SidebarNoMovies">No movies guessed yet!</span>
           )}
         </div>
       )}
