@@ -13,6 +13,7 @@ export default function Search(props) {
   const attempts = useGameManager((state) => state.currentAttempts);
   const [page, setPage] = useState(1);
   const [maxPage, setMaxPage] = useState(null);
+  const scrollToTop = useGameManager((state) => state.scrollToTop);
   const blacklist = [
     "porn",
     "porno",
@@ -81,6 +82,7 @@ export default function Search(props) {
     setDebounced(true);
     setQuery("");
     inputRef.current.focus();
+    scrollToTop();
   }, [attempts]);
 
   useEffect(() => {

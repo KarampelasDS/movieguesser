@@ -4,6 +4,9 @@ import { persist } from "zustand/middleware";
 const useGameManager = create(
   persist(
     (set, get) => ({
+      scrollToTop: () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      },
       allowSound: true,
       setAllowSound: (newSound) => {
         set({ allowSound: newSound });
@@ -11,13 +14,11 @@ const useGameManager = create(
       playConfetti: () => {
         var confettiAudio = new Audio("/sounds/confetti.mp3");
         confettiAudio.play();
-        window.scrollTo({ top: 0, behavior: "smooth" });
       },
       playChalk: () => {
         var num = Math.floor(Math.random() * 4) + 1;
         var chalkAudio = new Audio(`/sounds/chalk/chalk${num}.mp3`);
         chalkAudio.play();
-        window.scrollTo({ top: 0, behavior: "smooth" });
       },
       currentMovie: "loading...",
       currentAttempts: 3,
@@ -77,6 +78,7 @@ const useGameManager = create(
           if (get().allowSound) {
             get().playConfetti();
           }
+          get().scrollToTop();
           const newScore = get().currentScore + 1;
           get().setCurrentScore(newScore); // auto-updates highScore
           get().addGuess({ title, year, image, correct: true });
