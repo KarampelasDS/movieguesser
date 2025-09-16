@@ -78,6 +78,7 @@ export default function Search(props) {
   ];
 
   useEffect(() => {
+    setDebounced(true);
     setQuery("");
     inputRef.current.focus();
   }, [attempts]);
@@ -159,7 +160,7 @@ export default function Search(props) {
           />
         </div>
       </div>
-      {searchlist.length > 0 ? (
+      {searchlist.length > 0 && query != "" ? (
         <div>
           {searchlist.map((movie, index) => (
             <SearchResult
@@ -174,7 +175,7 @@ export default function Search(props) {
       ) : (
         query != "" && <div className="search-no-results">No results found</div>
       )}
-      {searchlist.length > 0 && (
+      {searchlist.length > 0 && query != "" && (
         <div className="pagination-controls">
           <button
             disabled={page <= 1}

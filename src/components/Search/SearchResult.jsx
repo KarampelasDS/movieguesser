@@ -2,15 +2,19 @@ import useGameManager from "@/store/useGameManager";
 
 export default function SearchResult(props) {
   const guessMovie = useGameManager((state) => state.guessMovie);
+  const canClick = useGameManager((state) => state.canClick);
 
   function Guess() {
-    guessMovie(
-      props.tmdbid,
-      props.title,
-      props.year,
-      `https://image.tmdb.org/t/p/w500${props.image}`
-    );
-    console.log("Guessed:", props.tmdbid);
+    if (canClick) {
+      guessMovie(
+        props.tmdbid,
+        props.title,
+        props.year,
+        `https://image.tmdb.org/t/p/w500${props.image}`
+      );
+
+      console.log("Guessed:", props.tmdbid);
+    }
   }
 
   return (

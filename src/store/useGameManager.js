@@ -8,6 +8,7 @@ const useGameManager = create(
       currentAttempts: 3,
       setCurrentMovie: (newMovie) => set({ currentMovie: newMovie }),
       showOverview: false,
+      canClick: true,
       showOverviewSidebar: 0,
       currentScore: 0,
       highScore: 0, // 🏆 persisted manually
@@ -31,12 +32,18 @@ const useGameManager = create(
         set({ showOverviewSidebar: newState }),
       resetMovie: () => set({ currentMovie: "loading..." }),
       decreaseAttempts: () =>
-        set((state) => ({ currentAttempts: state.currentAttempts - 1 })),
+        set((state) => ({
+          currentAttempts: state.currentAttempts - 1,
+          canClick: true,
+        })),
       setAttempts: (newAttempts) => set({ currentAttempts: newAttempts }),
       guessesList: [],
       resetGuessesList: () => set({ guessesList: [] }),
       addGuess: (guess) =>
-        set((state) => ({ guessesList: [...state.guessesList, guess] })),
+        set((state) => ({
+          canClick: false,
+          guessesList: [...state.guessesList, guess],
+        })),
       _hasHydrated: false,
       gameResult: "",
       setGameResult: (result) => set({ gameResult: result }),
