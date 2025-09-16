@@ -160,7 +160,7 @@ export default function Game() {
         reveal={attempts}
       />
 
-      {(gameResult === "Win" || movies.length === 0) && (
+      {(gameResult === "Win" || movies.length === 0) && !loading && (
         <Button text="Next Movie" onClick={NextMovie} />
       )}
 
@@ -168,9 +168,11 @@ export default function Game() {
         <Button text="End Run" onClick={() => setShowResults(true)} />
       )}
 
-      <p className="attempts-counter">
-        You have <span>{attempts}</span> attempts left!
-      </p>
+      {gameResult != "Win" && (
+        <p className="attempts-counter">
+          You have <span>{attempts}</span> attempts left!
+        </p>
+      )}
 
       {loading && (
         <div role="status">
