@@ -5,15 +5,19 @@ export default function Stat(props) {
   const [animateSubValue, setAnimateSubValue] = useState(false);
 
   useEffect(() => {
-    setAnimateValue(true);
-    const timeout = setTimeout(() => setAnimateValue(false), 300);
-    return () => clearTimeout(timeout);
+    if (props.value != 0) {
+      setAnimateValue(true);
+      const timeout = setTimeout(() => setAnimateValue(false), 300);
+      return () => clearTimeout(timeout);
+    }
   }, [props.value]);
 
   useEffect(() => {
-    setAnimateSubValue(true);
-    const timeout = setTimeout(() => setAnimateSubValue(false), 300);
-    return () => clearTimeout(timeout);
+    if (props.subvalue != 0) {
+      setAnimateSubValue(true);
+      const timeout = setTimeout(() => setAnimateSubValue(false), 300);
+      return () => clearTimeout(timeout);
+    }
   }, [props.subvalue]);
 
   return (

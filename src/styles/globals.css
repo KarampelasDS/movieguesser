@@ -577,26 +577,6 @@ button:disabled {
   }
 }
 
-.popSmall {
-  animation: popSmall 0.3s ease;
-}
-
-@keyframes popSmall {
-  0% {
-    font-size: 24px;
-  }
-  25% {
-    color: yellow;
-  }
-  50% {
-    font-size: 32px;
-    color: yellow;
-  }
-  100% {
-    font-size: 24px;
-  }
-}
-
 @media only screen and (max-width: 1200px) {
   .clapper-content {
     flex-direction: column;
@@ -850,22 +830,6 @@ button:disabled {
     }
     100% {
       font-size: 24px;
-    }
-  }
-
-  @keyframes popSmall {
-    0% {
-      font-size: 16px;
-    }
-    25% {
-      color: yellow;
-    }
-    50% {
-      font-size: 32px;
-      color: yellow;
-    }
-    100% {
-      font-size: 16px;
     }
   }
 }
