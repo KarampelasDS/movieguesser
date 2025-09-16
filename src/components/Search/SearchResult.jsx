@@ -2,7 +2,6 @@ import useGameManager from "@/store/useGameManager";
 
 export default function SearchResult(props) {
   const guessMovie = useGameManager((state) => state.guessMovie);
-  const canClick = useGameManager((state) => state.canClick);
 
   function Guess() {
     guessMovie(
