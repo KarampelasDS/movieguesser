@@ -2,6 +2,10 @@ import Button from "@/components/Button/Button";
 import Image from "next/image";
 
 export default function Menu() {
+  const StartGame = () => {
+    window.location.href = "/";
+  };
+
   return (
     <div className="MenuWrapper">
       <div className="LogoWrapper">
@@ -12,8 +16,8 @@ export default function Menu() {
           height={200}
         />
       </div>
-      <div>
-        <Button text="Start Game" />
+      <div className="MenuButtons">
+        <Button text="Start Game" onClick={() => StartGame()} />
         <Button text="How to Play" />
       </div>
     </div>
