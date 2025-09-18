@@ -252,6 +252,8 @@ body {
 
 .search-results-image img {
   border-radius: 8px;
+  max-height: 150px;
+  width: 100%;
 }
 
 .search-results-container:first-of-type {
@@ -686,6 +688,10 @@ button:disabled {
 }
 
 @media only screen and (max-width: 700px) {
+  .search-results-image img {
+    max-height: 100px;
+  }
+
   .SoundToggle {
     right: 10px;
     top: 100px;
