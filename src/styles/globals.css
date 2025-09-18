@@ -78,6 +78,12 @@ body {
   object-fit: fill;
   border: none !important;
   border-radius: 10px;
+  user-drag: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 .MovieContent {
