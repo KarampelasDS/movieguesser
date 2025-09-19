@@ -626,7 +626,7 @@ button:disabled {
 .SidebarNoMovies {
   font-size: 24px;
   text-align: center;
-  color: red;
+  color: #ff4c4c;
 }
 
 .MenuWrapper {
