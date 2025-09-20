@@ -21,6 +21,8 @@ const useGameManager = create(
         chalkAudio.play();
       },
       currentMovie: "loading...",
+      currentPoster: "",
+      setCurrentPoster: (newPoster) => set({ currentPoster: newPoster }),
       currentAttempts: 3,
       setCurrentMovie: (newMovie) => set({ currentMovie: newMovie }),
       showOverview: false,

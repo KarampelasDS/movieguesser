@@ -1,6 +1,8 @@
 import useGameManager from "@/store/useGameManager";
 import { BsInfoCircleFill } from "react-icons/bs";
 import MovieOverview from "../MovieOverview/MovieOverview";
+import fetchPoster from "@/pages/api/fetchPoster";
+import { useEffect, useState } from "react";
 
 export default function SidebarMovie({ movie }) {
   const setShowOverviewSidebar = useGameManager(
@@ -9,6 +11,7 @@ export default function SidebarMovie({ movie }) {
   const showOverviewSidebar = useGameManager(
     (state) => state.showOverviewSidebar
   );
+
   return (
     <div className="SidebarMovieContainer">
       <div className="SidebarMoviePoster">

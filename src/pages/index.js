@@ -9,11 +9,14 @@ import Stat from "@/components/Stat/Stat";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import Button from "@/components/Button/Button";
 import SoundToggle from "@/components/SoundToggle/SoundToggle";
+import fetchPoster from "./api/fetchPoster";
 
 export default function Game() {
   const [allMovies, setAllMovies] = useState([]);
   const [movies, setMovies] = useState([]);
   const [currentMovie, setCurrentMovie] = useState();
+  const currentPoster = useGameManager((state) => state.currentPoster);
+  const setCurrentPoster = useGameManager((state) => state.setCurrentPoster);
   const [outOfMovies, setOutOfMovies] = useState(false);
   const [loading, setLoading] = useState(true);
   const maxRetries = 5;
@@ -75,19 +78,31 @@ export default function Game() {
     }
   }, [networkError]);
 
-  function RandomMovie(sourceMovies = movies) {
+  async function RandomMovie(sourceMovies = movies) {
     if (sourceMovies.length === 0) {
       setOutOfMovies(true);
       setCurrentMovie(null);
       return;
     }
+
     const randomIndex = Math.floor(Math.random() * sourceMovies.length);
     const movie = sourceMovies[randomIndex];
+    setLoading(true);
 
+    const posterPath = await fetchPoster(movie.tmdb_id);
+    const posterUrl = posterPath
+      ? `https://image.tmdb.org/t/p/w500${posterPath}`
+      : "/placeholder-image.png";
+
+    movie.poster = posterUrl;
+
+    setCurrentPoster(posterUrl);
     setCurrentMovie(movie);
+
     useGameManager.getState().setCurrentMovie(movie);
     setMovies((prev) => prev.filter((_, i) => i !== randomIndex));
     console.log("Random Movie Selected:", movie);
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -155,7 +170,11 @@ export default function Game() {
       )}
 
       <Clapper
-        image={currentMovie ? currentMovie.poster : "/placeholder-image.png"}
+        image={
+          currentMovie
+            ? `https://image.tmdb.org/t/p/w500${currentPoster}`
+            : "/placeholder-image.png"
+        }
         title={currentMovie ? currentMovie.title : "Loading..."}
         genre={currentMovie ? currentMovie.genre : "Loading..."}
         year={currentMovie ? currentMovie.year : "Loading..."}
@@ -217,7 +236,7 @@ export default function Game() {
           title={currentMovie.title}
           year={currentMovie.year}
           description={currentMovie.overview}
-          image={currentMovie.poster}
+          image={currentPoster}
           link={currentMovie.watchurl}
           closeOverview={() => setShowOverview(false)}
         />
