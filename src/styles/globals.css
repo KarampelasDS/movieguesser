@@ -27,7 +27,7 @@ body {
 }
 
 .clapper {
-  background-color: #040404;
+  background-color: rgba(4, 4, 4, 0.8);
   min-width: 1090px;
   min-height: 470px;
   border-radius: 15px;
