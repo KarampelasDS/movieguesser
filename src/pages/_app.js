@@ -1,5 +1,18 @@
 import "@/styles/globals.css";
+import Head from "next/head";
 
 export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <Head>
+        <title>MovieGuesser | Guess Movies from Bad Descriptions</title>
+        <meta
+          name="description"
+          content="Guess movies based on hilarious bad descriptions, discover new movies, and track your high scores!"
+        />
+        <link rel="icon" href="/favicon.svg" />
+      </Head>
+      <Component {...pageProps} />
+    </>
+  );
 }
