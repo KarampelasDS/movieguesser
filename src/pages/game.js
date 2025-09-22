@@ -20,12 +20,9 @@ export default function Game() {
   const setCurrentPoster = useGameManager((state) => state.setCurrentPoster);
   const [outOfMovies, setOutOfMovies] = useState(false);
   const [loading, setLoading] = useState(true);
-  const maxRetries = 5;
-  const attemptsRef = useRef(0);
 
   const attempts = useGameManager((state) => state.currentAttempts);
   const setAttempts = useGameManager((state) => state.setAttempts);
-  const decreaseAttempt = useGameManager((state) => state.decreaseAttempts);
   const guesses = useGameManager((state) => state.guessesList);
   const showOverview = useGameManager((state) => state.showOverview);
   const setShowOverview = useGameManager((state) => state.setShowOverview);
@@ -36,9 +33,6 @@ export default function Game() {
   const resetGuessesList = useGameManager((state) => state.resetGuessesList);
   const resetMovie = useGameManager((state) => state.resetMovie);
   const [networkError, setNetworkError] = useState(false);
-
-  const pastMovies = useGameManager((state) => state.pastMovies);
-  const addPastMovie = useGameManager((state) => state.addPastMovie);
 
   const hydrateHighScore = useGameManager((state) => state.hydrateHighScore);
   const highScore = useGameManager((state) => state.highScore);

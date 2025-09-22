@@ -1,19 +1,19 @@
 import Image from "next/image";
-import Fuse from "fuse.js";
 import { useEffect, useRef, useState } from "react";
+import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
 import SearchResult from "./SearchResult";
 import useGameManager from "@/store/useGameManager";
-import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
 
-export default function Search(props) {
+export default function Search() {
   const inputRef = useRef(null);
   const [query, setQuery] = useState("");
-  const [searchlist, setSearchlist] = useState([]);
   const [debounced, setDebounced] = useState("");
-  const attempts = useGameManager((state) => state.currentAttempts);
+  const [searchlist, setSearchlist] = useState([]);
   const [page, setPage] = useState(1);
   const [maxPage, setMaxPage] = useState(null);
+  const attempts = useGameManager((state) => state.currentAttempts);
   const scrollToTop = useGameManager((state) => state.scrollToTop);
+
   const blacklist = [
     "porn",
     "porno",
@@ -78,67 +78,65 @@ export default function Search(props) {
     "adultery alumni association",
   ];
 
+  // Reset on new attempt
   useEffect(() => {
-    setDebounced(true);
     setQuery("");
+    setDebounced("");
+    setPage(1);
     inputRef.current.focus();
     scrollToTop();
   }, [attempts]);
 
-  useEffect(() => {
-    SearchMovie(query);
-  }, [page]);
-
-  async function SearchMovie(query) {
-    if (!debounced) return;
-    try {
-      const res = await fetch(
-        `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=${page}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_KEY}`,
-            accept: "application/json",
-          },
-        }
-      );
-
-      if (!res.ok) {
-        throw new Error("Search Server Error");
-      }
-      const data = await res.json();
-      console.log("TMDB:", data);
-
-      const filteredResults = data.results
-        .filter((item) => {
-          const title = (item.title || item.name || "").toLowerCase();
-          return !blacklist.some((word) => title.includes(word));
-        })
-        .sort((a, b) => b.popularity - a.popularity);
-
-      setSearchlist(filteredResults);
-      setMaxPage(data.total_pages);
-    } catch (error) {
-      console.error("Error fetching movies:", error);
-    }
-  }
-
+  // Debounce input changes
   useEffect(() => {
     const timeout = setTimeout(() => {
-      setDebounced(query);
+      setDebounced(query.trim());
       setPage(1);
     }, 300);
 
     return () => clearTimeout(timeout);
   }, [query]);
 
+  // Fetch movies when debounced query or page changes
   useEffect(() => {
     if (!debounced) {
-      setSearchlist([]); // Clear results immediately if query is empty
+      setSearchlist([]);
       return;
     }
-    SearchMovie(debounced);
-  }, [debounced]);
+
+    async function fetchMovies() {
+      try {
+        const res = await fetch(
+          `https://api.themoviedb.org/3/search/movie?query=${debounced}&include_adult=false&language=en-US&page=${page}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_KEY}`,
+              accept: "application/json",
+            },
+          }
+        );
+
+        if (!res.ok) throw new Error("Search Server Error");
+
+        const data = await res.json();
+
+        const filteredResults = data.results
+          .filter((item) => {
+            const title = (item.title || item.name || "").toLowerCase();
+            return !blacklist.some((word) => title.includes(word));
+          })
+          .sort((a, b) => b.popularity - a.popularity);
+
+        setSearchlist(filteredResults);
+        setMaxPage(data.total_pages);
+      } catch (error) {
+        console.error("Error fetching movies:", error);
+      }
+    }
+
+    fetchMovies();
+  }, [debounced, page]);
 
   return (
     <>
@@ -149,20 +147,20 @@ export default function Search(props) {
             placeholder="Type movie title here..."
             ref={inputRef}
             value={query}
-            onChange={(e) => {
-              setQuery(e.target.value);
-            }}
+            onChange={(e) => setQuery(e.target.value)}
           />
           <Image
             className="searchIcon"
             width={50}
             height={50}
             src="/search-icon.png"
-            onClick={() => SearchMovie(query)}
+            alt="Search"
+            onClick={() => setDebounced(query.trim())}
           />
         </div>
       </div>
-      {searchlist.length > 0 && query != "" ? (
+
+      {searchlist.length > 0 && query !== "" ? (
         <div>
           {searchlist.map((movie, index) => (
             <SearchResult
@@ -175,25 +173,23 @@ export default function Search(props) {
           ))}
         </div>
       ) : (
-        query != "" && <div className="search-no-results">No results found</div>
+        query !== "" && (
+          <div className="search-no-results">No results found</div>
+        )
       )}
-      {searchlist.length > 0 && query != "" && (
+
+      {searchlist.length > 0 && query !== "" && (
         <div className="pagination-controls">
           <button
             disabled={page <= 1}
-            onClick={() => {
-              if (page <= 1) return;
-              setPage(page - 1);
-            }}
+            onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
           >
             <GrFormPreviousLink />
           </button>
-          <span>{page} </span>
+          <span>{page}</span>
           <button
-            disabled={maxPage == page || page == 10}
-            onClick={() => {
-              setPage(page + 1);
-            }}
+            disabled={page >= maxPage || page >= 10}
+            onClick={() => setPage((prev) => prev + 1)}
           >
             <GrFormNextLink />
           </button>
