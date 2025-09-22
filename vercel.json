@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/mt-demo/:match*",
+      "destination": "https://movieguesser-ds.vercel.app/_vercel/insights/:match*"
+    }
+  ]
+}

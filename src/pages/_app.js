@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
 import Head from "next/head";
-import { Analytics } from "@vercel/analytics/next";
+import Script from "next/script";
 
 export default function App({ Component, pageProps }) {
   return (
@@ -13,8 +13,25 @@ export default function App({ Component, pageProps }) {
         />
         <link rel="icon" href="/favicon.svg" />
       </Head>
+
+      <Script
+        id="va-init"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+          `,
+        }}
+      />
+
+      <Script
+        async
+        src="/mt-demo/script.js"
+        data-endpoint="/mt-demo"
+        strategy="afterInteractive"
+      />
+
       <Component {...pageProps} />
-      <Analytics />
     </>
   );
 }
