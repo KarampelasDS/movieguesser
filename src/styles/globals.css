@@ -245,6 +245,8 @@ body {
   /*font-family: Chalktastic;*/
   font-family: "Courier Prime", monospace;
   max-width: 400px;
+  text-align: left;
+  min-width: 400px;
 }
 
 .search-results-image {
@@ -840,6 +842,8 @@ button:disabled {
   .search-results-details {
     font-size: 18px;
     max-width: 170px;
+    text-align: center;
+    min-width: 170px;
   }
   .search-results-image {
     width: 70px;
