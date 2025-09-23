@@ -1071,3 +1071,10 @@ button:disabled {
     gap: 100px;
   }
 }
+
+@media only screen and (max-width: 400px) {
+  .search-results-details {
+    min-width: 120px;
+    max-width: 120px;
+  }
+}
